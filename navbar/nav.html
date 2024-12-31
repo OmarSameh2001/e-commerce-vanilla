@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="nav.css">
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary px-3">
+        <div class="container-fluid">
+            <i class="navbar-brand fs-2" href="#">Trendify</i>
+
+            <!-- Navbar links and icons -->
+            <div class="d-flex align-items-center">
+                <!-- Main nav links for large screens -->
+                <ul class="navbar-nav flex-row d-none d-lg-flex">
+                    <li class="nav-item">
+                        <a class="nav-link active mx-3" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#">Products</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle mx-3" href="#" role="button">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">T-shirt</a></li>
+                            <li><a class="dropdown-item" href="#">Hoodie</a></li>
+                            <li><a class="dropdown-item" href="#">Pants</a></li>
+                            <li><a class="dropdown-item" href="#">Socks</a></li>
+                            <li><a class="dropdown-item" href="#">Shorts</a></li>
+                            <li><a class="dropdown-item" href="#">Cap</a></li>
+                            <li><a class="dropdown-item" href="#">Sweatshirt</a></li>
+                            <li><a class="dropdown-item" href="#">Tracksuit</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#">Contact</a>
+                    </li>
+                </ul>
+
+                <!-- Icons for large screens -->
+                <div class="d-none d-lg-flex align-items-center nav-icons">
+                    <a href="#"><i class="fas fa-search mx-2" title="Search"></i></a>
+                    <a href="#"><i class="fas fa-user mx-2" title="Register/Login"></i></a>
+                    <a href="#"><i class="fas fa-heart mx-2" title="Wishlist"></i></a>
+                    <a href="#"><i class="fas fa-shopping-cart mx-2" title="Cart"></i></a>
+                </div>
+            </div>
+
+            <!-- Sidebar for smaller screens -->
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="offcanvasNavbar">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title">Trendify</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Products</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">T-shirt</a></li>
+                                <li><a class="dropdown-item" href="#">Hoodie</a></li>
+                                <li><a class="dropdown-item" href="#">Pants</a></li>
+                                <li><a class="dropdown-item" href="#">Socks</a></li>
+                                <li><a class="dropdown-item" href="#">Shorts</a></li>
+                                <li><a class="dropdown-item" href="#">Cap</a></li>
+                                <li><a class="dropdown-item" href="#">Sweatshirt</a></li>
+                                <li><a class="dropdown-item" href="#">Tracksuit</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <!-- Icons for small screens -->
+                        <li class="nav-item d-flex mt-3">
+                            <a href="#"><i class="fas fa-search mx-2" title="Search"></i></a>
+                            <a href="#"><i class="fas fa-heart mx-2" title="Wishlist"></i></a>
+                            <a href="#"><i class="fas fa-user mx-2" title="Register/Login"></i></a>
+                            <a href="#"><i class="fas fa-shopping-cart mx-2" title="Cart"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
