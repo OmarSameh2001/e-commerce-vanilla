@@ -14,3 +14,30 @@
 .card-registration .select-arrow {
   top: 13px;
 }
+
+.icon-box {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 125%; /* Position above the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  opacity: 0; /* Make it invisible initially */
+  transition: opacity 0.3s;
+  white-space: nowrap; /* Prevent line breaks */
+}
+
+.icon-box:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
