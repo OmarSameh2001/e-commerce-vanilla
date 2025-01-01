@@ -38,10 +38,11 @@
 
 .navbar-nav .nav-link.active,
 .offcanvas-body .nav-link.active {
-    color: #007bff;
+    color: #007bff !important;
+    font-weight: bold;
 }
 
-/* .dropdown-menu {
+.dropdown-menu {
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 8px;
@@ -69,7 +70,7 @@
     background-color: #007bff;
     color: white;
     border-radius: 6px;
-} */
+}
 
 .offcanvas-body .nav-item {
     margin-bottom: 10px;
@@ -115,10 +116,14 @@
     letter-spacing: 2px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, color 0.3s ease;
-    cursor: pointer;
+    cursor: default;
 }
 
 .navbar-brand:hover {
     color: #007bff;
     transform: scale(1.1);
+}
+
+.navbar {
+    padding: 0 !important;
 }
