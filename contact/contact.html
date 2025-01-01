@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+     <section class="top-sec">
+        <div id="container">
+            <h1>Contact US</h1>
+            <div class="underline"></div>
+            <form action="#" method="post" id="contact_form">
+              <div class="name">
+                <label for="name">Name</label>
+                <input type="text" placeholder="My name is" name="name" id="name_input" required>
+              </div>
+              <div class="email">
+                <label for="email">Email</label>
+                <input type="email" placeholder="My e-mail is" name="email" id="email_input" required>
+              </div>
+              <div class="telephone">
+                <label for="telephone">Telephone</label>
+                <input type="text" placeholder="My number is" name="telephone" id="telephone_input" required>
+              </div>
+              <div class="subject">
+                <label for="subject">Subject</label>
+                <select name="subject" id="subject_input" required>
+                    <option disabled hidden selected>Subject line</option>
+                    <option>Order Issues</option>
+                    <option>Returns and Exchanges</option>
+                    <option>Feedback</option>
+                    <option>Technical Issues</option>
+                    <option>I'd like to ask a question</option>
+                </select>
+              </div>
+              <div class="message">
+                <label for="message">Message</label>
+                <textarea name="message" placeholder="I'd like to chat about" id="message_input" cols="30" rows="5" required></textarea>
+              </div>
+              <div class="submit">
+                <input type="submit" value="Send Message" id="form_button">
+              </div>
+            </form>
+        </div>
+        <div class="direct-contact-container">
+            <ul class="contact-list">
+              <li class="list-item">
+                <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                <span class="contact-text place">Knowledge, City, New Capital, Egypt</span>
+              </li>
+              <li class="list-item">
+                <i class="fa fa-phone fa-2x" aria-hidden="true"></i>
+                <span class="contact-text phone">17002</span>
+              </li>
+              <li class="list-item">
+                <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                <span class="contact-text gmail">
+                  <a href="mailto:itiknowledgecity@iti.gov.eg" title="Send me an email">itiknowledgecity@iti.gov.eg</a>
+                </span>
+              </li>
+            </ul>
+            <hr>
+            <ul class="social-media-list">
+                <li>
+                    <a href="https://github.com/OmarSameh2001/e-commerce-vanilla" target="_blank" class="contact-icon" rel="noopener"> 
+                      <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/school/information-technology-institute-iti-/?originalSubdomain=eg" target="_blank" class="contact-icon" rel="noopener">
+                      <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/itians_newcapital?igsh=MThweTdlZm5qb2N0OA==" target="_blank" class="contact-icon" rel="noopener">
+                      <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                    </a>
+                </li>       
+            </ul>
+            <hr>
+        </div>
+     </section>
+     <h1>Come visit</h1>
+     <section class="map"> 
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18372.993071306413!2d31.681248787466494!3d30.027542746675454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1457f5172d0a0a8f%3A0x54b12d0e2e15ef55!2sITI%20-%20Information%20Technology%20Institute!5e0!3m2!1sen!2seg!4v1735738254309!5m2!1sen!2seg" 
+         width="1300px" height="500" style="justify-content: center; border:5px solid #fff;" 
+         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+    <script src="contact.js"></script>
+</body>
+</html>
+
