@@ -36,11 +36,11 @@
     transform: scale(1.1);
 }
 
-.navbar-nav .nav-link.active,
+/* .navbar-nav .nav-link.active,
 .offcanvas-body .nav-link.active {
     color: #007bff !important;
     font-weight: bold;
-}
+} */
 
 .dropdown-menu {
     background-color: #f8f9fa;
