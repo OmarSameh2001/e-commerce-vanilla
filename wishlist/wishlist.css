@@ -11,25 +11,16 @@
   padding: 5px 10px;
   border-radius: 5px;
   position: absolute;
-  bottom: 125%; /* Position above the icon */
+  /* Position above the icon */
+  bottom: 125%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  opacity: 0; /* Make it invisible initially */
+  /* Make it invisible initially */
+  opacity: 0;
   transition: opacity 0.3s;
-  white-space: nowrap; /* Prevent line breaks */
-}
-
-/* to show to small arrow under the tooltip */
-.tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  /* Prevent line breaks */
+  white-space: nowrap;
 }
 
 .icon-box:hover .tooltip {
