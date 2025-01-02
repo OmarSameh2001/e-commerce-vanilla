@@ -1,5 +1,5 @@
 import {addToCart, getCartItems, removeFromCart} from "../cart/cart.js";
-import {addToWishlist, getCartWishlist, removeFromWishlist} from "../wishlist/wishlist.js";
+import {addToWishlist, getWishlistItems, removeFromWishlist} from "../wishlist/wishlist.js";
 
 
 async function fetchProducts() {
@@ -9,12 +9,18 @@ async function fetchProducts() {
 
 const products = fetchProducts();
 const cartItems = getCartItems();
-const wishlistItems = getCartWishlist();
+const wishlistItems = getWishlistItems();
 products.then(data => {
     const products = data;
     displayProducts(products);
     localStorage.setItem('products', JSON.stringify(products));
 })
+
+function getProduct(id) {
+    const products = JSON.parse(localStorage.getItem('products'));
+    const product = products.filter(product => product.id === id);
+    return product[0];
+}
 
 function displayProducts(products) {
     const productsContainer = document.querySelector('.products');
@@ -23,12 +29,14 @@ function displayProducts(products) {
         const productDiv = document.createElement('div');
         productDiv.className = 'product';
         productDiv.innerHTML = `
-            <div class="card d-flex flex-column align-items-center justify-content-center text-center m-1 p-1" style="width: 30vw;">
-                <img src="${product.image}" height="200" width="200" alt="${product.name}">
-                <h4 style="text-decoration: underline;">${product.name}</h4>
-                <p>${product.description}</p>
-                <p class="mt-0">Rating: ${product.rating} <i class="fa-solid fa-star" style="color: gold;"></i></p>
-                <p>Price: ${product.price} EGP</p>
+            <div class="card d-flex flex-column align-items-center justify-content-center text-center m-1 p-1" style="width: 30vw; cursor: pointer;">
+                <div  onclick="window.location.href = '../product-page/singleproduct.html?id=${product.id}'" >    
+                    <img src="${product.image}" height="200" width="200" alt="${product.name}">
+                    <h4 style="text-decoration: underline;">${product.name}</h4>
+                    <p>${product.description}</p>
+                    <p class="mt-0">Rating: ${product.rating} <i class="fa-solid fa-star" style="color: gold;"></i></p>
+                    <p>Price: ${product.price} EGP</p>
+                </div>
                 <div>
                     <button class="cart_btn btn btn-primary"></button>
                     <button class="wishlist_btn btn btn-success"></button>
@@ -37,17 +45,29 @@ function displayProducts(products) {
         `;
         if (cartItems.some(item => item.id === product.id)) {
             productDiv.querySelector('.cart_btn').innerText = 'Remove from Cart';
-            productDiv.querySelector('.cart_btn').addEventListener('click', () => removeFromCart(product.id));
+            productDiv.querySelector('.cart_btn').addEventListener('click', () => {
+                removeFromCart(product.id)
+                window.location.reload();
+            });
         }else {
             productDiv.querySelector('.cart_btn').innerText = 'Add to Cart';
-            productDiv.querySelector('.cart_btn').addEventListener('click', () => addToCart(product.id, product.name, product.image, product.price));    
+            productDiv.querySelector('.cart_btn').addEventListener('click', () => {
+                addToCart(product.id, product.name, product.image, product.price)
+                window.location.reload();
+            });    
         }
         if (wishlistItems.some(item => item.id === product.id)) {
             productDiv.querySelector('.wishlist_btn').innerText = 'Remove from Wishlist';
-            productDiv.querySelector('.wishlist_btn').addEventListener('click', () => removeFromWishlist(product.id));
+            productDiv.querySelector('.wishlist_btn').addEventListener('click', () => {
+                removeFromWishlist(product.id)
+                window.location.reload();
+            });
         }else {
             productDiv.querySelector('.wishlist_btn').innerText = 'Add to Wishlist';
-            productDiv.querySelector('.wishlist_btn').addEventListener('click', () => addToWishlist(product.id, product.name, product.image, product.price));
+            productDiv.querySelector('.wishlist_btn').addEventListener('click', () => {
+                addToWishlist(product.id, product.name, product.image, product.price);
+                window.location.reload();
+            });
         }
         productsContainer.appendChild(productDiv);
     });
@@ -88,3 +108,5 @@ fetch('../footer/footer.html')
         console.error('There was a problem with the fetch operation:', error);
     });
 // Navbar and footer---------------
+
+export {getProduct};
