@@ -11,8 +11,6 @@ function addToCart(id, name, picture, price) {
     }else {
         localStorage.setItem('cart', JSON.stringify([{id, name, picture, price}]))
     }
-    window.location.reload()
-    return
 }
 function removeFromCart(id) {
     const cart = localStorage.getItem('cart')
@@ -21,7 +19,6 @@ function removeFromCart(id) {
         const updatedCart = cartItems.filter(item => item.id !== id)
         localStorage.setItem('cart', JSON.stringify(updatedCart))
     }
-    window.location.reload()
 }
 
 function getCartItems() {
@@ -35,7 +32,17 @@ function getCartItems() {
     }
     return []
 }
-
+function getCartItem(id) {
+    const cart = localStorage.getItem('cart')
+    if (cart) {
+        for (const i of JSON.parse(cart)) {
+            if (i.id === id) {
+                return i
+            }
+        }
+    }
+    return null
+}
 // Navbar and footer-----------
 const navbarHtml = document.querySelector('.navbar');
 
@@ -95,4 +102,4 @@ fetch('../footer/footer.html')
     });
 // Navbar and footer---------------
 
-export {addToCart, removeFromCart, getCartItems}
+export {addToCart, removeFromCart, getCartItems, getCartItem}

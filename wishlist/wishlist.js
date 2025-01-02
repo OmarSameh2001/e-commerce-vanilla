@@ -11,8 +11,6 @@ function addToWishlist(id, name, picture, price) {
     }else {
         localStorage.setItem('wishlist', JSON.stringify([{id, name, picture, price}]))
     }
-    window.location.reload()
-    return
 }
 function removeFromWishlist(id) {
     const wishlist = localStorage.getItem('wishlist')
@@ -21,10 +19,9 @@ function removeFromWishlist(id) {
         const updatedWishlist = wishlistItems.filter(item => item.id !== id)
         localStorage.setItem('wishlist', JSON.stringify(updatedWishlist))
     }
-    window.location.reload()
 }
 
-function getCartWishlist() {
+function getWishlistItems() {
     const wishlist = localStorage.getItem('wishlist')
     const res = []
     if (wishlist) {
@@ -34,6 +31,18 @@ function getCartWishlist() {
         return res
     }
     return []
+}
+
+function getWishlistItem(id) {
+    const wishlist = localStorage.getItem('wishlist')
+    if (wishlist) {
+        for (const i of JSON.parse(wishlist)) {
+            if (i.id === id) {
+                return i
+            }
+        }
+    }
+    return null
 }
 
 // Navbar and footer-----------
@@ -95,4 +104,4 @@ fetch('../footer/footer.html')
     });
 // Navbar and footer---------------
 
-export {addToWishlist, removeFromWishlist, getCartWishlist}
+export {addToWishlist, removeFromWishlist, getWishlistItems, getWishlistItem}
