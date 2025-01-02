@@ -14,7 +14,7 @@ products.then(data => {
     const products = data;
     const urlParams = new URLSearchParams(window.location.search);
     const selectedCategory = urlParams.get('category');
-    const categoriesParams = selectedCategory.includes(',') ? selectedCategory.split(',') : [selectedCategory];
+    const categoriesParams = selectedCategory && selectedCategory.includes(',') ? selectedCategory.split(',') : [selectedCategory];
     // Update the title based on the selected category
     const productTitle = document.getElementById('product_title');
     if (selectedCategory) {
@@ -126,7 +126,7 @@ categoriesBtn.addEventListener('click', () => {
         }
     });
     if (selectedCategories.length === 0) {
-        alert('Please select at least one category');
+        window.location.href = window.location.origin + window.location.pathname;
     } else {
         const currentUrl = window.location.origin + window.location.pathname;
         console.log(currentUrl)
