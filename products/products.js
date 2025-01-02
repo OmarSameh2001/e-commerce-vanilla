@@ -134,7 +134,7 @@ categoriesBtn.addEventListener('click', () => {
         }
     });
     if (selectedCategories.length === 0) {
-        window.location.href = window.location.origin + window.location.pathname;
+        alert('Please select at least one category');
     } else {
         const currentUrl = window.location.origin + window.location.pathname;
         console.log(currentUrl)
