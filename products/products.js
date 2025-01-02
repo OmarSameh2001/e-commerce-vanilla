@@ -14,7 +14,7 @@ products.then(data => {
     const products = data;
     const urlParams = new URLSearchParams(window.location.search);
     const selectedCategory = urlParams.get('category');
-
+    const categoriesParams = selectedCategory.includes(',') ? selectedCategory.split(',') : [selectedCategory];
     // Update the title based on the selected category
     const productTitle = document.getElementById('product_title');
     if (selectedCategory) {
@@ -25,7 +25,7 @@ products.then(data => {
 
     // Filter products by category if a category is selected
     const filteredProducts = selectedCategory
-        ? products.filter(product => product.category === selectedCategory)
+        ? products.filter(product => categoriesParams.includes(product.category))
         : products;
 
     displayProducts(filteredProducts);
@@ -84,6 +84,56 @@ function displayProducts(products) {
         productsContainer.appendChild(productDiv);
     });
 }
+
+const categories = ['T-shirt', 'Hoodie', 'Pants', 'Socks', 'Shorts', 'Cap', 'Sweatshirt', 'Tracksuit'];
+
+const categoriesContainer = document.querySelector('.collapse');
+const categoriesCollapse = document.createElement('div');
+categoriesCollapse.className = 'd-flex gap-4';
+categoriesContainer.appendChild(categoriesCollapse);
+const urlParams = new URLSearchParams(window.location.search);
+const selectedCategory = urlParams.get('category');
+categories.forEach((category, index) => {
+    const categoryDiv = document.createElement('div');
+    categoryDiv.className = 'category';
+    categoryDiv.innerHTML = selectedCategory && selectedCategory.includes(category) ? `<div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="category-${index}" checked>
+                                <label class="form-check-label" for="category-${index}">
+                                    ${category}
+                                </label>
+                             </div>`: `<div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="category-${index}">
+                                <label class="form-check-label" for="category-${index}">
+                                    ${category}
+                                </label>
+                             </div>`;
+    categoriesCollapse.appendChild(categoryDiv);
+})
+const btnContainer = document.createElement('div');
+btnContainer.className = 'd-flex justify-content-center align-items-center p-1 m-2';
+const categoriesBtn = document.createElement('button');
+categoriesBtn.className = 'btn btn-primary align-self-center';
+categoriesBtn.textContent = 'Apply Filter';
+categoriesContainer.appendChild(btnContainer);
+btnContainer.appendChild(categoriesBtn);
+
+categoriesBtn.addEventListener('click', () => {
+    const selectedCategories = [];
+    categories.forEach((category, index) => {
+        const checkbox = document.getElementById(`category-${index}`);
+        if (checkbox.checked) {
+            selectedCategories.push(category);
+        }
+    });
+    if (selectedCategories.length === 0) {
+        alert('Please select at least one category');
+    } else {
+        const currentUrl = window.location.origin + window.location.pathname;
+        console.log(currentUrl)
+        const newUrl = `${currentUrl}?category=${selectedCategories.join(',')}`;
+        window.location.href = newUrl;
+    }
+});
 
 // Navbar and footer loading
 const navbarHtml = document.querySelector('.navbar');
