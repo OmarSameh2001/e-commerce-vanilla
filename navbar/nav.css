@@ -1,7 +1,13 @@
 .navbar {
     z-index: 1000;
 }
-.offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl {
+
+.offcanvas,
+.offcanvas-lg,
+.offcanvas-md,
+.offcanvas-sm,
+.offcanvas-xl,
+.offcanvas-xxl {
     --bs-offcanvas-width: inherit;
 }
 
@@ -42,13 +48,12 @@
     transform: scale(1.1);
 }
 
-/* .navbar-nav .nav-link.active,
-.offcanvas-body .nav-link.active {
-    color: #007bff !important;
-    font-weight: bold;
-} */
+.navbar-nav .dropdown:hover > .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
 
-.dropdown-menu {
+.navbar .dropdown-menu {
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 8px;
@@ -59,58 +64,22 @@
     opacity: 0;
 }
 
-.navbar-nav .dropdown:hover > .dropdown-menu {
-    display: block;
+.navbar .dropdown:hover .dropdown-menu {
     opacity: 1;
     transform: translateY(0);
 }
 
-.dropdown-item {
+.navbar .dropdown-item {
     font-size: 16px;
     padding: 10px 20px;
     color: #343a40;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.dropdown-item:hover {
-    background-color: #007bff !important;
-    color: white !important;
-    border-radius: 6px !important;
-}
-
-.offcanvas-body .nav-item {
-    margin-bottom: 10px;
-}
-
-.offcanvas-body .dropdown-menu {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 10px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.offcanvas-body .dropdown-item {
-    padding: 10px 20px;
-    color: #343a40;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.offcanvas-body .dropdown-item:hover {
+.navbar .dropdown-item:hover {
     background-color: #007bff;
     color: white;
     border-radius: 6px;
-}
-
-.offcanvas-body .nav-icons i {
-    font-size: 20px;
-    color: #343a40;
-    margin-right: 15px;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.offcanvas-body .nav-icons i:hover {
-    color: #007bff;
-    transform: scale(1.1);
 }
 
 .navbar-brand {
@@ -133,6 +102,24 @@
 .navbar {
     padding: 0 !important;
 }
+
+@media (min-width: 992px) {
+    .navbar-nav .dropdown-menu {
+        position: absolute !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav .dropdown-menu {
+        position: static;
+        margin-top: 10px;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+    }
+}
+
 
 #userName {
     cursor: default;
