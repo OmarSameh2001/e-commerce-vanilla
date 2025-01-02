@@ -73,17 +73,10 @@ function displayProducts(products) {
         }
 
         if (wishlistItems.some(item => item.id === product.id)) {
-            productDiv.querySelector('.wishlist_btn').innerText = 'Remove from Wishlist';
-            productDiv.querySelector('.wishlist_btn').addEventListener('click', () => {
-                removeFromWishlist(product.id)
-                window.location.reload();
-            });
-        }else {
-            productDiv.querySelector('.wishlist_btn').innerText = 'Add to Wishlist';
-            productDiv.querySelector('.wishlist_btn').addEventListener('click', () => {
-                addToWishlist(product.id, product.name, product.image, product.price);
-                window.location.reload();
-            });
+            wishlistBtn.textContent = 'Remove';
+            wishlistBtn.addEventListener('click', () => removeFromWishlist(product.id));
+        } else {
+            wishlistBtn.addEventListener('click', () => addToWishlist(product.id, product.name, product.image, product.price));
         }
 
         productDiv.querySelector('.card').addEventListener('mouseover', (e) => {
@@ -190,8 +183,6 @@ fetch('../navbar/nav.html')
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
-
-const footerHtml = document.querySelector('.footer');
 
 fetch('../footer/footer.html')
     .then(response => {
