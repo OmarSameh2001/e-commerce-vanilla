@@ -85,6 +85,17 @@ function displayProducts(products) {
                 window.location.reload();
             });
         }
+
+        productDiv.querySelector('.card').addEventListener('mouseover', (e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.2)';
+        });
+
+        productDiv.querySelector('.card').addEventListener('mouseout', (e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        });
+
         productsContainer.appendChild(productDiv);
     });
 }
@@ -179,6 +190,8 @@ fetch('../navbar/nav.html')
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
+
+const footerHtml = document.querySelector('.footer');
 
 fetch('../footer/footer.html')
     .then(response => {
