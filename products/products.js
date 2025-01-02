@@ -12,7 +12,23 @@ const wishlistItems = getCartWishlist();
 
 products.then(data => {
     const products = data;
-    displayProducts(products);
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCategory = urlParams.get('category');
+
+    // Update the title based on the selected category
+    const productTitle = document.getElementById('product_title');
+    if (selectedCategory) {
+        productTitle.textContent = `${selectedCategory} Products`;
+    } else {
+        productTitle.textContent = 'All Products';
+    }
+
+    // Filter products by category if a category is selected
+    const filteredProducts = selectedCategory
+        ? products.filter(product => product.category === selectedCategory)
+        : products;
+
+    displayProducts(filteredProducts);
     localStorage.setItem('products', JSON.stringify(products));
 });
 
@@ -52,7 +68,6 @@ function displayProducts(products) {
             wishlistBtn.textContent = 'Remove';
             wishlistBtn.addEventListener('click', () => removeFromWishlist(product.id));
         } else {
-            wishlistBtn.textContent = 'Wishlist';
             wishlistBtn.addEventListener('click', () => addToWishlist(product.id, product.name, product.image, product.price));
         }
 
@@ -70,8 +85,9 @@ function displayProducts(products) {
     });
 }
 
-// Navbar and footer-----------
+// Navbar and footer loading
 const navbarHtml = document.querySelector('.navbar');
+const footerHtml = document.querySelector('.footer');
 
 fetch('../navbar/nav.html')
     .then(response => {
@@ -87,8 +103,6 @@ fetch('../navbar/nav.html')
         console.error('There was a problem with the fetch operation:', error);
     });
 
-const footerHtml = document.querySelector('.footer');
-
 fetch('../footer/footer.html')
     .then(response => {
         if (!response.ok) {
@@ -102,4 +116,3 @@ fetch('../footer/footer.html')
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
-// Navbar and footer---------------

@@ -1,49 +1,21 @@
-// const categories = document.querySelector('.categories');
-// let currentScroll = 0;
-// let scrollDirection = 1;
-
-// function slideCategories() {
-//     currentScroll += scrollDirection * 1;
-//     categories.scrollLeft = currentScroll;
-
-//     if (currentScroll >= categories.scrollWidth - categories.clientWidth || currentScroll <= 0) {
-//         scrollDirection *= -1;
-//     }
-
-//     requestAnimationFrame(slideCategories);
-// }
-
-// slideCategories();
+// Load navbar and footer dynamically
 const navbarHtml = document.querySelector('.navbar');
-
-// Use fetch to load the HTML file
-fetch('./navbar/nav.html')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.text();
-    })
-    .then(html => {
-        navbarHtml.innerHTML = html;
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
-
 const footerHtml = document.querySelector('.footer');
 
-// Use fetch to load the HTML file
+fetch('./navbar/nav.html')
+    .then(response => response.text())
+    .then(html => navbarHtml.innerHTML = html)
+    .catch(error => console.error('Error loading navbar:', error));
+
 fetch('./footer/footer.html')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.text();
-    })
-    .then(html => {
-        footerHtml.innerHTML = html;
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
+    .then(response => response.text())
+    .then(html => footerHtml.innerHTML = html)
+    .catch(error => console.error('Error loading footer:', error));
+
+// Handle category clicks
+document.querySelectorAll('.category').forEach(category => {
+    category.addEventListener('click', () => {
+        const selectedCategory = category.getAttribute('data-category');
+        window.location.href = `./products/products.html?category=${selectedCategory}`;
     });
+});
