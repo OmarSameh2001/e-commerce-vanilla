@@ -106,19 +106,17 @@ document
     }
   });
 
+  let generatedOtp = null;
 // Registration Form Submission
 document
   .getElementById("register-button")
-  .addEventListener("click", function (event) {
+  .addEventListener("click", async function (event) {
     event.preventDefault();
     const email = document.getElementById("inputEmailRegister").value;
     const password = document.getElementById("inputPasswordRegister").value;
     const repeatPassword = document.getElementById("inputPasswordRepeat").value;
     const bcrypt = dcodeIO.bcrypt;
     const salt = bcrypt.genSaltSync(10);
-    // add otp to email service
-    // ------------
-    const generatedOtp = Math.floor(Math.random() * 9999).toString();
 
     if (!validateEmail(email)) {
       alert("Please enter a valid email address.");
@@ -138,16 +136,10 @@ document
       return;
     }
 
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    // Store user data in local storage
-    const userData = {
-      username: email.split("@")[0],
-      email: email,
-      password: hashedPassword,
-    };
-    const usersData = localStorage.getItem("usersData");
-    if (usersData) {
-      usersData.map((user) => {
+    const usersData = JSON.parse(localStorage.getItem("usersData"));
+    console.log(usersData);
+    if (usersData && usersData.length > 1) {
+      usersData?.map((user) => {
         if (user.email === email || user.username === email.split("@")[0]) {
           alert("Email or username already exists.");
           event.preventDefault();
@@ -155,6 +147,52 @@ document
         }
       });
     }
+
+    generatedOtp = Math.floor(Math.random() * 9999).toString();
+    console.log(generatedOtp);
+    // try {
+    //   const templateParams = {
+    //   email: email,
+    //   message: `Your OTP is ${generatedOtp}`,
+    //   name: email.split("@")[0],
+    //   }
+    //   const response = await emailjs.send('service_nv0azng', 'template_68ny5to', templateParams)
+    //   console.log('Email sent successfully:', response);
+    // } catch (error) {
+    //   alert('Error sending email:', error);
+    //   return;
+    // }
+    document.getElementById("otp-container").style.display = "block";
+    document.getElementById("inputEmailRegister").disabled = true;
+    document.getElementById("inputPasswordRegister").disabled = true;
+    document.getElementById("inputPasswordRepeat").disabled = true;
+    document.getElementById("register-button").disabled = true;
+  });
+
+document
+  .getElementById("sendOtp")
+  .addEventListener("click", function (event) {
+    event.preventDefault();
+    const email = document.getElementById("inputEmailRegister").value;
+    const password = document.getElementById("inputPasswordRegister").value;
+    const bcrypt = dcodeIO.bcrypt;
+    const salt = bcrypt.genSaltSync(10);
+    const otp = document.getElementById("inputOtp").value;
+    if (generatedOtp !== otp) {
+      alert("Invalid OTP");
+      event.preventDefault();
+      return;
+    }
+    
+    const hashedPassword = bcrypt.hashSync(password, salt);
+    // Store user data in local storage
+    const userData = {
+      username: email.split("@")[0],
+      email: email,
+      password: hashedPassword,
+    };
+
+    const usersData = localStorage.getItem("usersData");
     if (usersData && usersData) {
       const users = JSON.parse(usersData);
       users.push(userData);
@@ -166,7 +204,7 @@ document
     alert("Registration successful!");
     event.preventDefault();
 
-    window.location.reload();
+    window.location.reload(true);
   });
 
 // Login Form Submission
@@ -188,20 +226,26 @@ document
       event.preventDefault();
       return;
     }
+    
+    const rememberMe = document.getElementById("rememberMe");
 
     // Retrieve user data from local storage
     const usersData = JSON.parse(localStorage.getItem("usersData"));
     usersData.map((user) => {
       if (user.email === email) {
         if (bcrypt.compareSync(password, user.password)) {
-          sessionStorage.setItem("currentUser", JSON.stringify(user.username));
+          if(rememberMe.checked) {
+            localStorage.setItem("currentUser", JSON.stringify(user.username));
+          }else {
+            sessionStorage.setItem("currentUser", JSON.stringify(user.username));
+          }
           alert("Login successful!");
-          window.location.href = "../index.html";
         } else {
           alert("Invalid email or password.");
           event.preventDefault();
           return;
         }
+        window.location.href = "../index.html";
       }
     });
   });

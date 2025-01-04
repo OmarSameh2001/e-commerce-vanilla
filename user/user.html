@@ -4,16 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Registration Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="user.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js'></script>
+    <script type='text/javascript'>
+    (function(){
+        emailjs.init('ra9NtBkz4YY1wB3wV');
+    })();
+    </script>
     <script src="user.js" type="module"></script>
+    
 </head>
 <body>
-    <div class="container">
-        <form class="form-signin rounded-sm shadow"> <!--Write the method here for the form -->
-            <div class="mx-auto" style="width: 200px">
-                <img class="mb-4 logo" src="https://i.ibb.co/1qzQdYt/logo.png" alt="Logo">
+    <div class="container d-flex justify-content-center align-items-center">
+        <form class="form-signin rounded-sm shadow">
+            <div class="m-auto d-flex flex-column text-center" style="width: 200px">
+                <p>Welcome to Trendify</p>
+                <img class="mx-auto mb-4 logo" src="../assets/image.png" style="border-radius: 50%; width: 150px" alt="Logo">
+                <p>Login or Register to start shopping.</p>
             </div>
             <!-- Nav tabs -->
             <ul class="nav nav-pills mb-4 justify-content-center" id="tabs">
@@ -39,7 +48,7 @@
                     <div class="one-line mb-2">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" checked="checked" value="remember-me" />
+                                <input id="rememberMe" type="checkbox" checked="checked" value="remember-me" />
                                 Remember me
                             </label>
                         </div>
@@ -53,7 +62,7 @@
                 <!-- Register Form -->
                 <div id="register" class="container tab-pane">
                     <label for="inputEmailRegister" class="sr-only">Email address</label>
-                    <input type="email" id="inputEmailRegister" class="form-control mb-4" placeholder="Email address" required autofocus />
+                    <input type="email" id="inputEmailRegister" class="form-control mb-2" placeholder="Email address" required autofocus />
                     <span id="emailError" class="text-danger small"></span>
 
                     <label for="inputPasswordRegister" class="sr-only">Password</label>
@@ -66,6 +75,15 @@
                     <label for="inputPasswordRepeat" class="sr-only">Repeat Password</label>
                     <input type="password" id="inputPasswordRepeat" class="form-control mb-4" placeholder="Repeat Password" required />
                     <span id="repeatPasswordError" class="text-danger small"></span>
+                    
+                    <div id="otp-container" style="display: none;">
+                        <div class="d-flex mb-2 justify-content-space-between" style="justify-content: space-between;">
+                            <label for="inputOtp" class="sr-only">OTP</label>
+                            <button class="btn btn-sm btn-dark" id="sendOtp">Confirm OTP</button>
+                        </div>
+                        <input type="text" id="inputOtp" class="form-control mb-4" placeholder="OTP"/>
+                        <span id="otpError" class="text-danger small"></span>
+                    </div>
 
                     <button class="btn btn-lg btn-dark btn-block d-flex justify-self-stretch justify-content-center" id="register-button">Register</button>
                     <p class="mt-4 mb-0 text-muted small">
@@ -75,7 +93,6 @@
             </div>
         </form>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
