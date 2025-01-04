@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="user.css">
+</head>
+<body>
+    <div class="container">
+        <form class="form-signin rounded-sm shadow"> <!--Write the method here for the form -->
+            <div class="mx-auto" style="width: 200px">
+                <img class="mb-4 logo" src="https://i.ibb.co/1qzQdYt/logo.png" alt="Logo">
+            </div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills mb-4 justify-content-center" id="tabs">
+                <li class="nav-item pill-1">
+                    <a class="nav-link active rounded-0" href="#" id="login-tab">Login</a>
+                </li>
+                <li class="nav-item pill-2">
+                    <a class="nav-link rounded-0" href="#" id="register-tab">Register</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Login Form -->
+                <div id="login" class="container tab-pane active">
+                    <label for="inputEmail" class="sr-only">Email address</label>
+                    <input type="email" id="inputEmail" class="form-control mb-4" placeholder="Email address" required autofocus />
+                    <span id="loginEmailError" class="text-danger small"></span>
+
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Password" required />
+                    <span id="loginPasswordError" class="text-danger small"></span>
+
+                    <div class="one-line mb-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checked="checked" value="remember-me" />
+                                Remember me
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-lg btn-dark btn-block mt-3 d-flex justify-self-stretch justify-content-center" type="submit">Login</button>
+                    <p class="mt-4 mb-0 text-muted small">
+                        Don't have an account? <a href="#" id="go-to-register">Register</a>
+                    </p>
+                </div>
+
+                <!-- Register Form -->
+                <div id="register" class="container tab-pane">
+                    <label for="inputEmailRegister" class="sr-only">Email address</label>
+                    <input type="email" id="inputEmailRegister" class="form-control mb-4" placeholder="Email address" required autofocus />
+                    <span id="emailError" class="text-danger small"></span>
+
+                    <label for="inputPasswordRegister" class="sr-only">Password</label>
+                    <input type="password" id="inputPasswordRegister" class="form-control mb-4" placeholder="Password" required />
+                    <span id="passwordError" class="text-danger small"></span>
+                    <span id="passwordStrength" class="text-info small"></span>
+
+                    <label for="inputPasswordRepeat" class="sr-only">Repeat Password</label>
+                    <input type="password" id="inputPasswordRepeat" class="form-control mb-4" placeholder="Repeat Password" required />
+                    <span id="repeatPasswordError" class="text-danger small"></span>
+
+                    <button class="btn btn-lg btn-dark btn-block d-flex justify-self-stretch justify-content-center" type="submit">Register</button>
+                    <p class="mt-4 mb-0 text-muted small">
+                        Already have an account? <a href="#" id="go-to-login">Login</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="user.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
