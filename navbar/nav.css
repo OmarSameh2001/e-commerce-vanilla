@@ -7,7 +7,13 @@
 
 @media (min-width: 992px) {
     .navbar-nav .dropdown-menu {
-        position: absolute;
+        position: absolute !important;
+    }
+    .navbar-nav .dropdown-menu li{
+        text-align: center;
+    }
+    body {
+        overflow-x: hidden;
     }
 }
 
@@ -67,9 +73,9 @@
 }
 
 .dropdown-item:hover {
-    background-color: #007bff;
-    color: white;
-    border-radius: 6px;
+    background-color: #007bff !important;
+    color: white !important;
+    border-radius: 6px !important;
 }
 
 .offcanvas-body .nav-item {
@@ -126,4 +132,8 @@
 
 .navbar {
     padding: 0 !important;
+}
+
+#userName {
+    cursor: default;
 }
