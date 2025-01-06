@@ -78,8 +78,8 @@ fetch('../footer/footer.html')
     })
     .then(() => {
         const currentUser =
-          localStorage.getItem("currentUser").slice(1, -1)  ||
-          sessionStorage.getItem("currentUser").slice(1, -1) ;
+          localStorage.getItem("currentUser").slice(1, -1) ||
+          sessionStorage.getItem("currentUser").slice(1, -1);
         document.getElementById("userName").innerHTML = currentUser;
         const logoutElement = document.getElementById("logout");
         logoutElement.style.cursor = "pointer";
@@ -89,10 +89,10 @@ fetch('../footer/footer.html')
             const confirmLogout = window.confirm(
               "Are you sure you want to logout?"
             );
-            console.log(confirmLogout);
             if (confirmLogout) {
               localStorage.removeItem("currentUser");
               sessionStorage.removeItem("currentUser");
+              window.location.href = "../user/user.html";
             }
           };
         } else {

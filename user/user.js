@@ -137,7 +137,6 @@ document
     }
 
     const usersData = JSON.parse(localStorage.getItem("usersData"));
-    console.log(usersData);
     if (usersData && usersData.length > 1) {
       usersData?.map((user) => {
         if (user.email === email || user.username === email.split("@")[0]) {

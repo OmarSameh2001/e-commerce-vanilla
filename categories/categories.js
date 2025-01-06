@@ -2,7 +2,7 @@
 document.querySelectorAll('.category').forEach(category => {
     category.addEventListener('click', () => {
         const selectedCategory = category.getAttribute('data-category');
-        window.location.href = `./products/products.html?category=${selectedCategory}`;
+        window.location.href = `../products/products.html?category=${selectedCategory}`;
     });
 });
 
@@ -22,28 +22,28 @@ fetch('../navbar/nav.html')
         navbarHtml.innerHTML = html;
     })
     .then(() => {
-        const currentUser =
-          localStorage.getItem("currentUser").slice(1, -1)  ||
-          sessionStorage.getItem("currentUser").slice(1, -1) ;
-        document.getElementById("userName").innerHTML = currentUser;
-        const logoutElement = document.getElementById("logout");
-        logoutElement.style.cursor = "pointer";
-        if (currentUser) {
-          logoutElement.innerHTML = "Logout";
-          logoutElement.onclick = () => {
-            const confirmLogout = window.confirm(
-              "Are you sure you want to logout?"
-            );
-            console.log(confirmLogout);
-            if (confirmLogout) {
-              localStorage.removeItem("currentUser");
-              sessionStorage.removeItem("currentUser");
-            }
-          };
-        } else {
-          document.getElementById("dropdown").display = "none";
-        }
-      })
+      const currentUser =
+        localStorage.getItem("currentUser").slice(1, -1) ||
+        sessionStorage.getItem("currentUser").slice(1, -1);
+      document.getElementById("userName").innerHTML = currentUser;
+      const logoutElement = document.getElementById("logout");
+      logoutElement.style.cursor = "pointer";
+      if (currentUser) {
+        logoutElement.innerHTML = "Logout";
+        logoutElement.onclick = () => {
+          const confirmLogout = window.confirm(
+            "Are you sure you want to logout?"
+          );
+          if (confirmLogout) {
+            localStorage.removeItem("currentUser");
+            sessionStorage.removeItem("currentUser");
+            window.location.href = "../user/user.html";
+          }
+        };
+      } else {
+        document.getElementById("dropdown").display = "none";
+      }
+    })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
