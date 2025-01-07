@@ -1,5 +1,8 @@
+const currentUser =
+  localStorage.getItem("currentUser").slice(1, -1) ||
+  sessionStorage.getItem("currentUser").slice(1, -1);
 function addToCart(id, name, picture, price) {
-  const cart = localStorage.getItem("cart");
+  const cart = localStorage.getItem(`${currentUser}cart`);
   if (cart) {
     const cartItems = JSON.parse(cart);
     if (cartItems.some((item) => item.id === id)) {
@@ -8,16 +11,16 @@ function addToCart(id, name, picture, price) {
     }
     cartItems.push({ id, name, picture, price });
     alert(`${name} has been added to cart successfully`);
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+    localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
   } else {
     localStorage.setItem(
-      "cart",
+      `${currentUser}cart`,
       JSON.stringify([{ id, name, picture, price }])
     );
   }
 }
 function addToWishlist(id, name, picture, price) {
-  const wishlist = localStorage.getItem("wishlist");
+  const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
     const wishlistItems = JSON.parse(wishlist);
     if (wishlistItems.some((item) => item.id === id)) {
@@ -25,10 +28,13 @@ function addToWishlist(id, name, picture, price) {
       return;
     }
     wishlistItems.push({ id, name, picture, price });
-    localStorage.setItem("wishlist", JSON.stringify(wishlistItems));
+    localStorage.setItem(
+      `${currentUser}wishlist`,
+      JSON.stringify(wishlistItems)
+    );
   } else {
     localStorage.setItem(
-      "wishlist",
+      `${currentUser}wishlist`,
       JSON.stringify([{ id, name, picture, price }])
     );
   }
@@ -49,11 +55,14 @@ function addToWishlist(id, name, picture, price) {
   }
 }
 function removeFromWishlist(id) {
-  const wishlist = localStorage.getItem("wishlist");
+  const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
     const wishlistItems = JSON.parse(wishlist);
     const updatedWishlist = wishlistItems.filter((item) => item.id !== id);
-    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    localStorage.setItem(
+      `${currentUser}wishlist`,
+      JSON.stringify(updatedWishlist)
+    );
   }
   const wishlist = localStorage.getItem("wishlist");
   if (wishlist) {
@@ -64,7 +73,7 @@ function removeFromWishlist(id) {
 }
 
 function getWishlistItems() {
-  const wishlist = localStorage.getItem("wishlist");
+  const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   const res = [];
   if (wishlist) {
     for (const i of JSON.parse(wishlist)) {
@@ -84,7 +93,7 @@ function getWishlistItems() {
 }
 
 function getWishlistItem(id) {
-  const wishlist = localStorage.getItem("wishlist");
+  const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
     for (const i of JSON.parse(wishlist)) {
       if (i.id === id) {
@@ -151,9 +160,6 @@ fetch("../footer/footer.html")
     footerHtml.innerHTML = html;
   })
   .then(() => {
-    const currentUser =
-      localStorage.getItem("currentUser").slice(1, -1) ||
-      sessionStorage.getItem("currentUser").slice(1, -1);
     document.getElementById("userName").innerHTML = currentUser;
     const logoutElement = document.getElementById("logout");
     logoutElement.style.cursor = "pointer";
@@ -214,6 +220,9 @@ fetch("../footer/footer.html")
   });
 // Navbar and footer---------------
 function viewWishlist() {
+  let userName = (document.querySelector(
+    ".user-name"
+  ).innerText = `${currentUser}\n Wishlist`);
   let cartItems = getWishlistItems();
 
   let firstChild;
