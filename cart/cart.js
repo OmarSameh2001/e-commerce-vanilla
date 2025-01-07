@@ -1,3 +1,6 @@
+const currentUser =
+  localStorage.getItem("currentUser").slice(1, -1) ||
+  sessionStorage.getItem("currentUser").slice(1, -1);
 function addToWishlist(id, name, picture, price) {
   const wishlist = localStorage.getItem("wishlist");
   if (wishlist) {
@@ -7,6 +10,7 @@ function addToWishlist(id, name, picture, price) {
       return;
     }
     wishlistItems.push({ id, name, picture, price });
+    alert(`Sucessfully added to wishlist`);
     localStorage.setItem("wishlist", JSON.stringify(wishlistItems));
   } else {
     localStorage.setItem(
@@ -16,7 +20,7 @@ function addToWishlist(id, name, picture, price) {
   }
 }
 function addToCart(id, name, picture, price) {
-  const cart = localStorage.getItem("cart");
+  const cart = localStorage.getItem(`${currentUser}cart`);
   if (cart) {
     const cartItems = JSON.parse(cart);
     if (cartItems.some((item) => item.id === id)) {
@@ -24,25 +28,25 @@ function addToCart(id, name, picture, price) {
       return;
     }
     cartItems.push({ id, name, picture, price });
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+    localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
   } else {
     localStorage.setItem(
-      "cart",
+      `${currentUser}cart`,
       JSON.stringify([{ id, name, picture, price }])
     );
   }
 }
 function removeFromCart(id) {
-  const cart = localStorage.getItem("cart");
+  const cart = localStorage.getItem(`${currentUser}cart`);
   if (cart) {
     const cartItems = JSON.parse(cart);
     const updatedCart = cartItems.filter((item) => item.id !== id);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    localStorage.setItem(`${currentUser}cart`, JSON.stringify(updatedCart));
   }
 }
 
 function getCartItems() {
-  const cart = localStorage.getItem("cart");
+  const cart = localStorage.getItem(`${currentUser}cart`);
   const res = [];
   if (cart) {
     for (const i of JSON.parse(cart)) {
@@ -53,7 +57,7 @@ function getCartItems() {
   return [];
 }
 function getCartItem(id) {
-  const cart = localStorage.getItem("cart");
+  const cart = localStorage.getItem(`${currentUser}cart`);
   if (cart) {
     for (const i of JSON.parse(cart)) {
       if (i.id === id) {
@@ -65,7 +69,6 @@ function getCartItem(id) {
 }
 // Navbar and footer-----------
 const navbarHtml = document.querySelector(".navbar");
-
 // Use fetch to load the HTML file
 fetch("../navbar/nav.html")
   .then((response) => {
@@ -78,9 +81,6 @@ fetch("../navbar/nav.html")
     navbarHtml.innerHTML = html;
   })
   .then(() => {
-    const currentUser =
-      localStorage.getItem("currentUser").slice(1, -1) ||
-      sessionStorage.getItem("currentUser").slice(1, -1);
     document.getElementById("userName").innerHTML = currentUser;
     const logoutElement = document.getElementById("logout");
     logoutElement.style.cursor = "pointer";
@@ -122,8 +122,11 @@ fetch("../footer/footer.html")
   });
 // Navbar and footer---------------
 function viewCart() {
+  console.log(currentUser);
   let cartItems = getCartItems();
-
+  document.querySelector(
+    ".user-name"
+  ).innerText = `${currentUser} \nSHOPPING CART`;
   let firstChild;
   let horizontalLine;
   let secondChild;
@@ -147,7 +150,11 @@ function viewCart() {
   let EighthChild;
   let EighthChildLabel;
   let EighthChildSelect;
-  let EighthChildSelectOption; //10items
+  let EighthChildSelectOption;
+  let NinthChild;
+  let NinthChildLabel;
+  let NinthChildSelect;
+  let NinthChildSelectOption; //10items
   let Colors = [
     "Red",
     "Blue",
@@ -160,6 +167,7 @@ function viewCart() {
     "Gray",
     "black",
   ];
+  let Sizes = ["Small", "Medium", "Large", "XL", "XXL"];
   let LastChild;
   let SummaryChild;
   let FirstSummaryChildH5;
@@ -171,6 +179,7 @@ function viewCart() {
   parentDiv.firstElementChild.lastElementChild.textContent = `${cartItems.length} Items`;
   const parentSummary = document.querySelector(".parent-summary");
   for (let i = 0; i < cartItems.length; i++) {
+    cartItems[i].size = "Small";
     cartItems[i].quantity = 1;
     cartItems[i].color = "Red";
     firstChild = document.createElement("div");
@@ -285,7 +294,6 @@ function viewCart() {
         cartItems[i].picture,
         cartItems[i].price
       );
-      alert(`Sucessfully added ${cartItems[i].name} to wishlist`);
     };
     SixthChildDivAnchor.innerHTML = '<i class="fa-regular fa-heart"></i>';
     SixthChildDivSpan = document.createElement("span");
@@ -337,6 +345,31 @@ function viewCart() {
     EighthChild.appendChild(EighthChildSelect);
     EighthChild.appendChild(EighthChildSelect);
     firstChild.appendChild(EighthChild);
+
+    NinthChild = document.createElement("div");
+    NinthChild.classList.add("col-md-3", "col-lg-3", "col-xl-3", "mt-3");
+    NinthChildLabel = document.createElement("label");
+    NinthChildLabel.htmlFor = "colorSelect";
+    NinthChildLabel.classList.add("form-label");
+    NinthChildLabel.innerText = "Select Size";
+    NinthChildSelect = document.createElement("select");
+    NinthChildSelect.id = "colorSelect";
+    NinthChildSelect.classList.add("form-select");
+    NinthChildSelect.onchange = function () {
+      cartItems[i].size = this.value;
+      console.log(`item ${cartItems[i].name} has a ${cartItems[i].size} size`);
+    };
+    for (let j = 0; j < Sizes.length; j++) {
+      NinthChildSelectOption = document.createElement("option");
+      NinthChildSelectOption.value = `${Sizes[j]}`;
+      NinthChildSelectOption.textContent = `${Sizes[j]}`;
+      NinthChildSelect.appendChild(NinthChildSelectOption);
+    }
+    NinthChild.appendChild(NinthChildLabel);
+    NinthChild.appendChild(NinthChildSelect);
+    NinthChild.appendChild(NinthChildSelect);
+    firstChild.appendChild(NinthChild);
+
     LastChild = document.createElement("hr");
     LastChild.classList.add("my-4");
     SummaryChild = document.createElement("div");
