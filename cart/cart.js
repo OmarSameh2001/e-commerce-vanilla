@@ -172,8 +172,7 @@ function viewCart() {
   const parentSummary = document.querySelector(".parent-summary");
   for (let i = 0; i < cartItems.length; i++) {
     cartItems[i].quantity = 1;
-    cartItems[i].color = "";
-    console.log(cartItems);
+    cartItems[i].color = "Red";
     firstChild = document.createElement("div");
     firstChild.classList.add(
       "row",
@@ -213,17 +212,8 @@ function viewCart() {
     fourthChildInput.name = "quantity";
     fourthChildInput.value = `${cartItems[i].quantity}`;
     fourthChildInput.type = "number";
-    fourthChildInput.onchange = function () {};
-    fourthChildInput.classList.add("form-control", "form-control-sm");
-    fourthChildButtonPlus = document.createElement("button");
-    fourthChildButtonPlus.classList.add("btn", "btn-link", "px-2");
-    fourthChildButtonMinus.onclick = function (e) {
-      this.parentNode.querySelector("input[type=number]").stepDown();
-      cartItems[i].quantity =
-        this.parentNode.querySelector("input[type=number]").value;
-      console.log(
-        `quantity of ${cartItems[i].name} = ${cartItems[i].quantity}`
-      );
+    fourthChildInput.onchange = function () {
+      cartItems[i].quantity = this.value;
       document.querySelectorAll(".items-price")[i].textContent = `${
         cartItems[i].price
       } EGP x ${cartItems[i].quantity} = ${
@@ -235,14 +225,29 @@ function viewCart() {
       });
       document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
     };
-    fourthChildButtonPlus.innerHTML = '<i class="fas fa-minus"></i>';
+    fourthChildInput.classList.add("form-control", "form-control-sm");
+    fourthChildButtonPlus = document.createElement("button");
+    fourthChildButtonPlus.classList.add("btn", "btn-link", "px-2");
+    fourthChildButtonMinus.onclick = function (e) {
+      this.parentNode.querySelector("input[type=number]").stepDown();
+      cartItems[i].quantity =
+        this.parentNode.querySelector("input[type=number]").value;
+      document.querySelectorAll(".items-price")[i].textContent = `${
+        cartItems[i].price
+      } EGP x ${cartItems[i].quantity} = ${
+        cartItems[i].price * cartItems[i].quantity
+      } EGP`;
+      totalPrice = 0;
+      cartItems.forEach((item) => {
+        totalPrice += item.price * item.quantity;
+      });
+      document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
+    };
+    fourthChildButtonPlus.innerHTML = '<i class="fas fa-plus"></i>';
     fourthChildButtonPlus.onclick = function (e) {
       this.parentNode.querySelector("input[type=number]").stepUp();
       cartItems[i].quantity =
         this.parentNode.querySelector("input[type=number]").value;
-      console.log(
-        `quantity of ${cartItems[i].name} = ${cartItems[i].quantity}`
-      );
       document.querySelectorAll(".items-price")[i].textContent = `${
         cartItems[i].price
       } EGP x ${cartItems[i].quantity} = ${
@@ -299,7 +304,6 @@ function viewCart() {
     SeventhChildDivAnchor.classList.add("text-muted");
     SeventhChildDivAnchor.onclick = function (e) {
       e.preventDefault();
-      console.log(cartItems[i].id);
       removeFromCart(cartItems[i].id);
       location.reload();
     };
@@ -320,6 +324,9 @@ function viewCart() {
     EighthChildSelect = document.createElement("select");
     EighthChildSelect.id = "colorSelect";
     EighthChildSelect.classList.add("form-select");
+    EighthChildSelect.onchange = function () {
+      cartItems[i].color = this.value;
+    };
     for (let j = 0; j < 10; j++) {
       EighthChildSelectOption = document.createElement("option");
       EighthChildSelectOption.value = `${Colors[j]}`;
@@ -335,7 +342,7 @@ function viewCart() {
     SummaryChild = document.createElement("div");
     SummaryChild.classList.add("d-flex", "justify-content-between", "mb-4");
     FirstSummaryChildH5 = document.createElement("h5");
-    FirstSummaryChildH5.textContent = `Item ${i + 1}`;
+    FirstSummaryChildH5.textContent = `Item ${i + 1}: `;
     FirstSummaryChild2H5 = document.createElement("h5");
     FirstSummaryChild2H5.classList.add("items-price");
     FirstSummaryChild2H5.textContent = `${cartItems[i].price} EGP x ${
@@ -347,7 +354,6 @@ function viewCart() {
     totalPrice += cartItems[i].price * cartItems[i].quantity;
   }
   document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
-  console.log(totalPrice);
 }
 viewCart();
 export { addToCart, removeFromCart, getCartItems, getCartItem };
