@@ -2,7 +2,7 @@ const currentUser =
   localStorage.getItem("currentUser").slice(1, -1) ||
   sessionStorage.getItem("currentUser").slice(1, -1);
 function addToWishlist(id, name, picture, price) {
-  const wishlist = localStorage.getItem("wishlist");
+  const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
     const wishlistItems = JSON.parse(wishlist);
     if (wishlistItems.some((item) => item.id === id)) {
@@ -11,10 +11,13 @@ function addToWishlist(id, name, picture, price) {
     }
     wishlistItems.push({ id, name, picture, price });
     alert(`Sucessfully added to wishlist`);
-    localStorage.setItem("wishlist", JSON.stringify(wishlistItems));
+    localStorage.setItem(
+      `${currentUser}wishlist`,
+      JSON.stringify(wishlistItems)
+    );
   } else {
     localStorage.setItem(
-      "wishlist",
+      `${currentUser}wishlist`,
       JSON.stringify([{ id, name, picture, price }])
     );
   }
