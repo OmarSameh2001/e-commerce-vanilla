@@ -13,6 +13,37 @@ const products = JSON.parse(localStorage.getItem("products"));
 const product = products.find((product) => product.id === id);
 console.log(product);
 
+let selectedSize = null;
+let selectedColor = null;
+
+// Function to handle size selection
+function handleSizeSelection() {
+    const sizeElements = document.querySelectorAll('.bg');
+    sizeElements.forEach((sizeElement) => {
+        sizeElement.addEventListener('click', () => {
+            // Remove active class from all
+            sizeElements.forEach((el) => el.classList.remove('active'));
+            // Add active class to clicked element
+            sizeElement.classList.add('active');
+            selectedSize = sizeElement.textContent.trim(); // Get size text
+        });
+    });
+}
+
+// Function to handle color selection
+function handleColorSelection() {
+    const colorElements = document.querySelectorAll('.cbg');
+    colorElements.forEach((colorElement) => {
+        colorElement.addEventListener('click', () => {
+            // Remove active class from all
+            colorElements.forEach((el) => el.classList.remove('active'));
+            // Add active class to clicked element
+            colorElement.classList.add('active');
+            selectedColor = getComputedStyle(colorElement).backgroundColor; // Get color
+        });
+    });
+}
+
 function updateCartButton(productId) {
     const cartBtn = document.querySelector('.cart_btn');
     if (getCartItem(productId)) {
@@ -24,7 +55,18 @@ function updateCartButton(productId) {
     } else {
         cartBtn.innerText = 'Add to Cart';
         cartBtn.onclick = () => {
-            addToCart(product.id, product.name, product.image, product.price);
+            if (!selectedSize || !selectedColor) {
+                alert('Please select a size and color before adding to cart.');
+                return;
+            }
+            addToCart(
+                product.id,
+                product.name,
+                product.image,
+                product.price,
+                selectedSize,
+                selectedColor
+            );
             updateCartButton(productId);
         };
     }
@@ -41,7 +83,18 @@ function updateWishlistButton(productId) {
     } else {
         wishlistBtn.innerText = 'Add to Wishlist';
         wishlistBtn.onclick = () => {
-            addToWishlist(product.id, product.name, product.image, product.price);
+            if (!selectedSize || !selectedColor) {
+                alert('Please select a size and color before adding to wishlist.');
+                return;
+            }
+            addToWishlist(
+                product.id,
+                product.name,
+                product.image,
+                product.price,
+                selectedSize,
+                selectedColor
+            );
             updateWishlistButton(productId); // Update button state after action
         };
     }
@@ -53,6 +106,9 @@ if (product) {
     document.querySelector('.description').innerText = product.description;
     document.querySelector('.price').innerText = `${product.price} EGP`;
     document.querySelector('.rating').innerText = product.rating;
+
+    handleSizeSelection();
+    handleColorSelection();
 
     updateCartButton(product.id);
     updateWishlistButton(product.id);
