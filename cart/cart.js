@@ -1,6 +1,12 @@
 const currentUser =
   localStorage.getItem("currentUser").slice(1, -1) ||
   sessionStorage.getItem("currentUser").slice(1, -1);
+
+const users = JSON.parse(localStorage.getItem("usersData"));
+console.log(users);
+
+const user = users.find((user) => user.username === currentUser);
+
 function addToWishlist(id, name, picture, price) {
   const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
@@ -70,62 +76,22 @@ function getCartItem(id) {
   }
   return null;
 }
-// Navbar and footer-----------
-const navbarHtml = document.querySelector(".navbar");
-// Use fetch to load the HTML file
-fetch("../navbar/nav.html")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
-    }
-    return response.text();
-  })
-  .then((html) => {
-    navbarHtml.innerHTML = html;
-  })
-  .then(() => {
-    document.getElementById("userName").innerHTML = currentUser;
-    const logoutElement = document.getElementById("logout");
-    logoutElement.style.cursor = "pointer";
-    if (currentUser) {
-      logoutElement.innerHTML = "Logout";
-      logoutElement.onclick = () => {
-        const confirmLogout = window.confirm(
-          "Are you sure you want to logout?"
-        );
-        if (confirmLogout) {
-          localStorage.removeItem("currentUser");
-          sessionStorage.removeItem("currentUser");
-          window.location.href = "../user/user.html";
-        }
-      };
-    } else {
-      document.getElementById("dropdown").display = "none";
-    }
-  })
-  .catch((error) => {
-    console.error("There was a problem with the fetch operation:", error);
-  });
 
-const footerHtml = document.querySelector(".footer");
-
-// Use fetch to load the HTML file
-fetch("../footer/footer.html")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
+try {
+  const addressButton = document.getElementById("save-address");
+  addressButton.addEventListener("click", () => {
+    const address = document.getElementById("shipping-address").value;
+    if (address && user.address !== address) {
+      user.address = address;
+      console.log(users);
+      localStorage.setItem("usersData", JSON.stringify(users));
     }
-    return response.text();
-  })
-  .then((html) => {
-    footerHtml.innerHTML = html;
-  })
-  .catch((error) => {
-    console.error("There was a problem with the fetch operation:", error);
   });
-// Navbar and footer---------------
+} catch (e) {}
 function viewCart() {
   try {
+    const userAddress = user.address;
+    document.getElementById("shipping-address").value = `${userAddress}`;
     console.log(currentUser);
     let cartItems = getCartItems();
     document.querySelector(
@@ -412,11 +378,66 @@ function viewCart() {
     }
     document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
     document.querySelector(".proceed-to-checkout").onclick = function () {
-      console.log(cartItems);
+      console.log(cartItems, user.address);
     };
   } catch (error) {
     console.log(error);
   }
 }
+// Navbar and footer-----------
+const navbarHtml = document.querySelector(".navbar");
+// Use fetch to load the HTML file
+fetch("../navbar/nav.html")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    return response.text();
+  })
+  .then((html) => {
+    navbarHtml.innerHTML = html;
+  })
+  .then(() => {
+    document.getElementById("userName").innerHTML = currentUser;
+    const logoutElement = document.getElementById("logout");
+    logoutElement.style.cursor = "pointer";
+    if (currentUser) {
+      logoutElement.innerHTML = "Logout";
+      logoutElement.onclick = () => {
+        const confirmLogout = window.confirm(
+          "Are you sure you want to logout?"
+        );
+        if (confirmLogout) {
+          localStorage.removeItem("currentUser");
+          sessionStorage.removeItem("currentUser");
+          window.location.href = "../user/user.html";
+        }
+      };
+    } else {
+      document.getElementById("dropdown").display = "none";
+    }
+  })
+  .catch((error) => {
+    console.error("There was a problem with the fetch operation:", error);
+  });
+
+const footerHtml = document.querySelector(".footer");
+
+// Use fetch to load the HTML file
+fetch("../footer/footer.html")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    return response.text();
+  })
+  .then((html) => {
+    footerHtml.innerHTML = html;
+  })
+  .catch((error) => {
+    console.error("There was a problem with the fetch operation:", error);
+  });
+// Navbar and footer---------------
+
 viewCart();
 export { addToCart, removeFromCart, getCartItems, getCartItem };
