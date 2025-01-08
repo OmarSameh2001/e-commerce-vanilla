@@ -239,12 +239,15 @@ document
             sessionStorage.setItem("currentUser", JSON.stringify(user.username));
           }
           alert("Login successful!");
+          window.location.href = "../index.html";
         } else {
           alert("Invalid email or password.");
           event.preventDefault();
           return;
         }
-        window.location.href = "../index.html";
       }
     });
+    alert("Invalid email or password.");
+    event.preventDefault();
+    return;
   });
