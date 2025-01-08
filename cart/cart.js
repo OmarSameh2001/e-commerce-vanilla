@@ -6,7 +6,9 @@ const users = JSON.parse(localStorage.getItem("usersData"));
 console.log(users);
 
 const user = users.find((user) => user.username === currentUser);
-
+const stripe = Stripe(
+  "pk_test_51Qf2mnIwjKw1YrKEsCYF20iCcPID6WHM1ordjrcR7C63qXEUehDRcGR4eL86aC8J73gfM0CZXTFrbgrmPsv47qde00rZe3WHFU"
+);
 function addToWishlist(id, name, picture, price) {
   const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
@@ -377,12 +379,32 @@ function viewCart() {
       totalPrice += cartItems[i].price * cartItems[i].quantity;
     }
     document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
-    document.querySelector(".proceed-to-checkout").onclick = function () {
+    document.querySelector(".proceed-to-checkout").onclick = async function () {
       console.log(cartItems, user.address);
+      const orderName = `${currentUser}-Order-${Date.now()}`;
+      console.log(orderName);
+      const price = await stripe.prices.create({
+        unit_amount: totalPrice * 100,
+        currency: "egp",
+        product_data: {
+          name: orderName,
+        },
+      })
+      stripe.redirectToCheckout({
+        lineItems: [
+          {
+            price: price,
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        successUrl: 'https://example.com/success',
+        cancelUrl: 'https://example.com/cancel',
+      });
+      
+      
     };
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 // Navbar and footer-----------
 const navbarHtml = document.querySelector(".navbar");
