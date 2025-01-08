@@ -1,4 +1,3 @@
-import { getProduct } from "../products/products.js";
 import { addToCart, getCartItem, removeFromCart } from "../cart/cart.js";
 import { getWishlistItem, addToWishlist, removeFromWishlist } from "../wishlist/wishlist.js";
 
@@ -9,7 +8,10 @@ function queryString() {
 }
 
 const id = queryString();
-const product = getProduct(id);
+console.log(id);
+const products = JSON.parse(localStorage.getItem("products"));
+const product = products.find((product) => product.id === id);
+console.log(product);
 
 function updateCartButton(productId) {
     const cartBtn = document.querySelector('.cart_btn');

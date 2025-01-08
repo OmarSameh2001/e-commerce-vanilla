@@ -58,10 +58,12 @@ function displayProducts(products) {
 
     productDiv.innerHTML = `
             <div class="card d-flex flex-column align-items-center justify-content-center text-center p-3" style="width: 20rem; height: 400px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; overflow: hidden;">
-                <img src="${product.image}" class="text-truncate" style="width: 100%; height: 200px; object-fit: cover;" alt="${product.name}">
-                <h4 style="font-size: 1.1rem; margin: 1rem 0; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${product.name}</h4>
-                <p style="font-size: 0.9rem; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Open the product to see more info about it</p>
-                <p style="font-size: 1rem; font-weight: bold; color: #000;">Price: ${product.price} EGP</p>
+                <div onclick="window.location.href='../product-page/singleproduct.html?id=${product.id}'"> 
+                    <img src="${product.image}" class="text-truncate" style="width: 100%; height: 200px; object-fit: cover;" alt="${product.name}">
+                    <h4 style="font-size: 1.1rem; margin: 1rem 0; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${product.name}</h4>
+                    <p style="font-size: 0.9rem; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Open the product to see more info about it</p>
+                    <p style="font-size: 1rem; font-weight: bold; color: #000;">Price: ${product.price} EGP</p>
+                </div>
                 <div style="display: flex; gap: 15px;">
                     <button class="cart_btn btn btn-outline-dark" style="flex: 1; padding: 5px 10px; font-size: 0.8rem;">Cart</button>
                     <button class="wishlist_btn btn btn-outline-danger" style="flex: 1; padding: 5px 10px; font-size: 0.8rem;">Wishlist</button>
