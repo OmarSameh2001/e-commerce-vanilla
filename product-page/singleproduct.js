@@ -13,37 +13,6 @@ const products = JSON.parse(localStorage.getItem("products"));
 const product = products.find((product) => product.id === id);
 console.log(product);
 
-let selectedSize = null;
-let selectedColor = null;
-
-// Function to handle size selection
-function handleSizeSelection() {
-    const sizeElements = document.querySelectorAll('.bg');
-    sizeElements.forEach((sizeElement) => {
-        sizeElement.addEventListener('click', () => {
-            // Remove active class from all
-            sizeElements.forEach((el) => el.classList.remove('active'));
-            // Add active class to clicked element
-            sizeElement.classList.add('active');
-            selectedSize = sizeElement.textContent.trim(); // Get size text
-        });
-    });
-}
-
-// Function to handle color selection
-function handleColorSelection() {
-    const colorElements = document.querySelectorAll('.cbg');
-    colorElements.forEach((colorElement) => {
-        colorElement.addEventListener('click', () => {
-            // Remove active class from all
-            colorElements.forEach((el) => el.classList.remove('active'));
-            // Add active class to clicked element
-            colorElement.classList.add('active');
-            selectedColor = getComputedStyle(colorElement).backgroundColor; // Get color
-        });
-    });
-}
-
 function updateCartButton(productId) {
     const cartBtn = document.querySelector('.cart_btn');
     if (getCartItem(productId)) {
@@ -55,17 +24,11 @@ function updateCartButton(productId) {
     } else {
         cartBtn.innerText = 'Add to Cart';
         cartBtn.onclick = () => {
-            if (!selectedSize || !selectedColor) {
-                alert('Please select a size and color before adding to cart.');
-                return;
-            }
             addToCart(
                 product.id,
                 product.name,
                 product.image,
-                product.price,
-                selectedSize,
-                selectedColor
+                product.price
             );
             updateCartButton(productId);
         };
@@ -78,24 +41,18 @@ function updateWishlistButton(productId) {
         wishlistBtn.innerText = 'Remove from Wishlist';
         wishlistBtn.onclick = () => {
             removeFromWishlist(productId);
-            updateWishlistButton(productId); // Update button state after action
+            updateWishlistButton(productId);
         };
     } else {
         wishlistBtn.innerText = 'Add to Wishlist';
         wishlistBtn.onclick = () => {
-            if (!selectedSize || !selectedColor) {
-                alert('Please select a size and color before adding to wishlist.');
-                return;
-            }
             addToWishlist(
                 product.id,
                 product.name,
                 product.image,
-                product.price,
-                selectedSize,
-                selectedColor
+                product.price
             );
-            updateWishlistButton(productId); // Update button state after action
+            updateWishlistButton(productId);
         };
     }
 }
@@ -107,9 +64,6 @@ if (product) {
     document.querySelector('.price').innerText = `${product.price} EGP`;
     document.querySelector('.rating').innerText = product.rating;
 
-    handleSizeSelection();
-    handleColorSelection();
-
     updateCartButton(product.id);
     updateWishlistButton(product.id);
 }
@@ -117,7 +71,6 @@ if (product) {
 // Navbar and footer-----------
 const navbarHtml = document.querySelector('.navbar');
 
-// Use fetch to load the HTML file
 fetch('../navbar/nav.html')
     .then(response => {
         if (!response.ok) {
@@ -157,7 +110,6 @@ fetch('../navbar/nav.html')
 
 const footerHtml = document.querySelector('.footer');
 
-// Use fetch to load the HTML file
 fetch('../footer/footer.html')
     .then(response => {
         if (!response.ok) {

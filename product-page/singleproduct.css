@@ -85,7 +85,7 @@ ul {
 }
 
 li {
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 .bg {
@@ -119,14 +119,7 @@ li {
     transform: scale(1.1);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-.bg.active, .cbg.active {
-    border: 2px solid #000;
-    transform: scale(1.1);
-}
-.cbg.active, .cbg.active {
-    border: 2px solid #000;
-    transform: scale(1.1);
-}
+
 
 
 .container .details button {

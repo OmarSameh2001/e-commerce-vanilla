@@ -171,7 +171,7 @@ function viewCart() {
       "Gray",
       "black",
     ];
-    let Sizes = ["Small", "Medium", "Large", "XL", "XXL"];
+    let Sizes = ["Small", "Medium", "Large", "XL", "XXL" , "XXXL"];
     let LastChild;
     let SummaryChild;
     let FirstSummaryChildH5;
@@ -354,7 +354,7 @@ function viewCart() {
         cartItems[i].color = this.value;
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
-      for (let j = 0; j < 10; j++) {
+      for (let j = 0; j < Colors.length; j++) {
         EighthChildSelectOption = document.createElement("option");
         EighthChildSelectOption.value = `${Colors[j]}`;
         EighthChildSelectOption.textContent = `${Colors[j]}`;
