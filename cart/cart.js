@@ -377,6 +377,11 @@ function viewCart() {
       totalPrice += cartItems[i].price * cartItems[i].quantity;
     }
     document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
+    if(totalPrice == 0){
+    document.querySelector(".proceed-to-checkout").disabled = true;
+    }else{
+      document.querySelector(".proceed-to-checkout").disabled = false;
+    }
     document.querySelector(".proceed-to-checkout").onclick = async function () {
       console.log(cartItems, user.address);
       const orderName = `${currentUser}-Order-${Date.now()}`;
