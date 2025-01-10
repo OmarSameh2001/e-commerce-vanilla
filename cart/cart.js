@@ -143,12 +143,19 @@ function viewCart() {
     let FirstSummaryChildH5;
     let FirstSummaryChild2H5;
     let totalPrice = 0;
-
+    let discountAmount = 0;
+    const promoCode = "trendify";
     const promoCodeh5 = document.querySelector(".promo-code");
+    //this is the parentDiv that will contain everything inside it.
     const parentDiv = document.querySelector(".parent-cart");
+    const discount = document.querySelector(".discount");
+    const totalPriceLabel = document.querySelector(".total-price-label");
+    const enterYourCode = document.querySelector(".enter-your-code");
+
     parentDiv.firstElementChild.lastElementChild.textContent = `${cartItems.length} Items`;
     const parentSummary = document.querySelector(".parent-summary");
     for (let i = 0; i < cartItems.length; i++) {
+      //set initial values for size,quantity,color if not set before.
       cartItems[i].size = cartItems[i].size || "Small";
       cartItems[i].quantity = cartItems[i].quantity || 1;
       cartItems[i].color = cartItems[i].color || "Red";
@@ -203,7 +210,30 @@ function viewCart() {
         cartItems.forEach((item) => {
           totalPrice += item.price * item.quantity;
         });
-        document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
+        if (discount.value === "trendify") {
+          discountAmount = 0.25;
+          document.querySelector(".total-price").innerText = `${
+            totalPrice * (1 - discountAmount)
+          } EGP`;
+          totalPriceLabel.innerText = "Discounted price";
+          enterYourCode.innerHTML = `<label
+                            class="form-label enter-your-code"
+                            for="form3Examplea2"
+                            >25% Discount applied </label>
+                            <i className="fa-solid fa-check" style={{ color: "#066f50" }} />
+                          `;
+        } else {
+          discountAmount = 0;
+          document.querySelector(
+            ".total-price"
+          ).innerText = `${totalPrice} EGP`;
+          totalPriceLabel.innerText = "Total price";
+          enterYourCode.innerHTML = `<label
+                            class="form-label enter-your-code"
+                            for="form3Examplea2"
+                            >Enter your code </label
+                          >`;
+        }
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
       fourthChildInput.classList.add("form-control", "form-control-sm");
@@ -222,7 +252,30 @@ function viewCart() {
         cartItems.forEach((item) => {
           totalPrice += item.price * item.quantity;
         });
-        document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
+        if (discount.value === promoCode) {
+          discountAmount = 0.25;
+          document.querySelector(".total-price").innerText = `${
+            totalPrice * (1 - discountAmount)
+          } EGP`;
+          totalPriceLabel.innerText = "Discounted price";
+          enterYourCode.innerHTML = `<label
+                            class="form-label enter-your-code"
+                            for="form3Examplea2"
+                            >25% Discount applied </label>
+                            <i className="fa-solid fa-check" style={{ color: "#066f50" }} />
+                          `;
+        } else {
+          discountAmount = 0;
+          document.querySelector(
+            ".total-price"
+          ).innerText = `${totalPrice} EGP`;
+          totalPriceLabel.innerText = "Total price";
+          enterYourCode.innerHTML = `<label
+                            class="form-label enter-your-code"
+                            for="form3Examplea2"
+                            >Enter your code </label
+                          >`;
+        }
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
       fourthChildButtonPlus.innerHTML = '<i class="fas fa-plus"></i>';
@@ -239,7 +292,31 @@ function viewCart() {
         cartItems.forEach((item) => {
           totalPrice += item.price * item.quantity;
         });
-        document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
+        if (discount.value === promoCode) {
+          discountAmount = 0.25;
+          document.querySelector(".total-price").innerText = `${
+            totalPrice * (1 - discountAmount)
+          } EGP`;
+          totalPriceLabel.innerText = "Discounted price";
+          enterYourCode.innerHTML = `<label
+                            class="form-label enter-your-code"
+                            for="form3Examplea2"
+                            >25% Discount applied </label>
+                            <i className="fa-solid fa-check" style={{ color: "#066f50" }} />
+                          `;
+        } else {
+          discountAmount = 0;
+          document.querySelector(
+            ".total-price"
+          ).innerText = `${totalPrice} EGP`;
+          totalPriceLabel.innerText = "Total price";
+          enterYourCode.innerHTML = `<label
+                            class="form-label enter-your-code"
+                            for="form3Examplea2"
+                            >Enter your code </label
+                          >`;
+        }
+
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
       fourthChild.appendChild(fourthChildButtonMinus);
@@ -376,6 +453,32 @@ function viewCart() {
       parentSummary.insertBefore(SummaryChild, promoCodeh5);
       totalPrice += cartItems[i].price * cartItems[i].quantity;
     }
+
+    discount.onchange = function (e) {
+      if (e.target.value === promoCode) {
+        discountAmount = 0.25;
+        document.querySelector(".total-price").innerText = `${
+          totalPrice * (1 - discountAmount)
+        } EGP`;
+        totalPriceLabel.innerText = "Discounted price";
+        enterYourCode.innerHTML = `<label
+                          class="form-label enter-your-code"
+                          for="form3Examplea2"
+                          >25% Discount applied </label>
+                          <i className="fa-solid fa-check" style={{ color: "#066f50" }} />
+                        `;
+      } else {
+        discountAmount = 0;
+        document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
+        totalPriceLabel.innerText = "Total price";
+        enterYourCode.innerHTML = `<label
+                          class="form-label enter-your-code"
+                          for="form3Examplea2"
+                          >Enter your code </label
+                        >`;
+      }
+    };
+
     document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
     if(totalPrice == 0){
     document.querySelector(".proceed-to-checkout").disabled = true;
@@ -386,12 +489,14 @@ function viewCart() {
       console.log(cartItems, user.address);
       const orderName = `${currentUser}-Order-${Date.now()}`;
       console.log(orderName);
+      console.log(totalPrice);
       createStripeCheckout();
     };
   } catch (error) {}
 }
 
 async function createStripeCheckout() {
+  localStorage.setItem(`payment`, true);
   const stripe = Stripe(
     "pk_test_51Qf2mnIwjKw1YrKEsCYF20iCcPID6WHM1ordjrcR7C63qXEUehDRcGR4eL86aC8J73gfM0CZXTFrbgrmPsv47qde00rZe3WHFU",
     {
