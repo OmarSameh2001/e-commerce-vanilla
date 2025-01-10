@@ -6,12 +6,7 @@ const users = JSON.parse(localStorage.getItem("usersData"));
 console.log(users);
 
 const user = users.find((user) => user.username === currentUser);
-const stripe = Stripe(
-  "pk_test_51Qf2mnIwjKw1YrKEsCYF20iCcPID6WHM1ordjrcR7C63qXEUehDRcGR4eL86aC8J73gfM0CZXTFrbgrmPsv47qde00rZe3WHFU",
-  {
-    apiVersion: "2024-12-18.acacia",
-  }
-);
+
 function addToWishlist(id, name, picture, price) {
   const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
@@ -142,7 +137,7 @@ function viewCart() {
       "Gray",
       "black",
     ];
-    let Sizes = ["Small", "Medium", "Large", "XL", "XXL" , "XXXL"];
+    let Sizes = ["Small", "Medium", "Large", "XL", "XXL", "XXXL"];
     let LastChild;
     let SummaryChild;
     let FirstSummaryChildH5;
@@ -386,22 +381,26 @@ function viewCart() {
       console.log(cartItems, user.address);
       const orderName = `${currentUser}-Order-${Date.now()}`;
       console.log(orderName);
-      createStripeCheckout()
+      createStripeCheckout();
     };
   } catch (error) {}
 }
 
 async function createStripeCheckout() {
-      const baseUrl = window.location.origin;
-      console.log(baseUrl);
-      stripe.redirectToCheckout({
-        mode: 'payment',
-        successUrl: baseUrl + "/payment/success.html",
-        cancelUrl: baseUrl + "/payment/reject.html",
-        lineItems: [
-          { price: 'price_1QfkWeIwjKw1YrKEiJKWk3SN', quantity: 1 },
-        ],
-      });
+  const stripe = Stripe(
+    "pk_test_51Qf2mnIwjKw1YrKEsCYF20iCcPID6WHM1ordjrcR7C63qXEUehDRcGR4eL86aC8J73gfM0CZXTFrbgrmPsv47qde00rZe3WHFU",
+    {
+      apiVersion: "2024-12-18.acacia",
+    }
+  );
+  const baseUrl = window.location.origin;
+  console.log(baseUrl);
+  stripe.redirectToCheckout({
+    mode: "payment",
+    successUrl: baseUrl + "/payment/success.html",
+    cancelUrl: baseUrl + "/payment/reject.html",
+    lineItems: [{ price: "price_1QfkWeIwjKw1YrKEiJKWk3SN", quantity: 1 }],
+  });
 }
 
 // Navbar and footer-----------
