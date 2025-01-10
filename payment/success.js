@@ -4,7 +4,7 @@ const currentUser =
 
 let cart = JSON.parse(localStorage.getItem(`${currentUser}cart`));
 const orders = JSON.parse(localStorage.getItem(`${currentUser}-orders`));
-const orderName = `${currentUser}-Order-${Date.now()}`;
+const orderId = Date.now();
 const payment = JSON.parse(localStorage.getItem("payment"));
 if (cart && payment) {
   localStorage.removeItem(`${currentUser}cart`);
@@ -16,7 +16,7 @@ if (cart && payment) {
     size: item.size,
     price: item.price,
   }));
-  const orderObject = { orderName, cart };
+  const orderObject = { orderId, cart, date: new Date().toLocaleDateString(), totalPrice: payment.totalPrice, address: payment.address, status: "Pending" };
   console.log(orderObject);
   if (orders) {
     orders.push(orderObject);
