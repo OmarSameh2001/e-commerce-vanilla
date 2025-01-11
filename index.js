@@ -1,12 +1,14 @@
 // Load navbar and footer dynamically
 const navbarHtml = document.querySelector(".navbar");
 const footerHtml = document.querySelector(".footer");
+const aboutHtml = document.querySelector(".about");
+const categoriesHtml = document.querySelector(".categories");
 
 fetch("./navbar/nav.html")
   .then((response) => response.text())
   .then((html) => (navbarHtml.innerHTML = html))
   .then(() => {
-    const currentUser = localStorage.getItem("currentUser") ? 
+    const currentUser = localStorage.getItem("currentUser") ?
       localStorage.getItem("currentUser").slice(1, -1) :
       sessionStorage.getItem("currentUser").slice(1, -1);
     document.getElementById("userName").innerHTML = currentUser;
@@ -29,6 +31,16 @@ fetch("./navbar/nav.html")
     }
   })
   .catch((error) => console.error("Error loading navbar:", error));
+
+  fetch("./categories/categories.html")
+  .then((response) => response.text())
+  .then((html) => (categoriesHtml.innerHTML = html))
+  .catch((error) => console.error("Error loading categories:", error));
+
+fetch("./about/about.html")
+  .then((response) => response.text())
+  .then((html) => (aboutHtml.innerHTML = html))
+  .catch((error) => console.error("Error loading about:", error));
 
 fetch("./footer/footer.html")
   .then((response) => response.text())

@@ -68,7 +68,7 @@ body {
 /* active (faded) */
 .nav-pills .pill-1 .nav-link {
   background: white !important;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #9D9C9C;
   color: #212529 !important;
   font-size: 1.5rem;
   font-weight: 700;
@@ -76,7 +76,7 @@ body {
 
 .nav-pills .pill-2 .nav-link {
   background: white !important;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #9D9C9C;
   color: #212529 !important;
   font-size: 1.5rem;
   font-weight: 700;
@@ -85,14 +85,14 @@ body {
 .nav-pills .pill-1 .nav-link:hover {
   color: #212529 !important;
   width: 100%;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #9D9C9C;
 
 }
 
 .nav-pills .pill-2 .nav-link:hover {
   color: #212529 !important;
   width: 100%;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #9D9C9C;
 }
 
 

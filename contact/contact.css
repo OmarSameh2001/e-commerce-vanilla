@@ -6,7 +6,7 @@ html {
 }
 
 body {
-  background: #ebeff3;
+  background: white;
 }
 .top-sec{
     display: flex;
@@ -121,8 +121,6 @@ select {
   
 }
 
-
-
 .subject {
   width: 100%;
 }
@@ -137,8 +135,6 @@ textarea {
 	resize: none;
   width: 100%;
 }
-
-
 
 ::-moz-placeholder {
 	color: #474544;
@@ -164,7 +160,7 @@ textarea {
 }
 
 #form_button:hover {
-  background: #474544;
+  background: black;
   color: #F2F3EB;
 }
 .direct-contact-container {

@@ -96,7 +96,7 @@ function viewCart() {
     let cartItems = getCartItems();
     document.querySelector(
       ".user-name"
-    ).innerText = `${currentUser} \nSHOPPING CART`;
+    ).innerText = `SHOPPING CART`;
     let firstChild;
     let horizontalLine;
     let secondChild;

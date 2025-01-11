@@ -65,8 +65,8 @@ function displayProducts(products) {
                     <p style="font-size: 1rem; font-weight: bold; color: #000;">Price: ${product.price} EGP</p>
                 </div>
                 <div style="display: flex; gap: 15px;">
-                    <button class="cart_btn btn btn-outline-dark" style="flex: 1; padding: 5px 10px; font-size: 0.8rem;">Cart</button>
-                    <button class="wishlist_btn btn btn-outline-danger" style="flex: 1; padding: 5px 10px; font-size: 0.8rem;">Wishlist</button>
+                    <button class="cart_btn btn btn-dark active" style="flex: 1; padding: 5px 10px; font-size: 0.8rem; min-width:75px;">Cart</button>
+                    <button class="wishlist_btn btn btn-danger active" style="flex: 1; padding: 5px 10px; font-size: 0.8rem; min-width:75px;">Wishlist</button>
                 </div>
             </div>
         `;
@@ -155,7 +155,7 @@ const btnContainer = document.createElement("div");
 btnContainer.className =
   "d-flex justify-content-center align-items-center p-1 m-2";
 const categoriesBtn = document.createElement("button");
-categoriesBtn.className = "btn btn-primary align-self-center";
+categoriesBtn.className = "btn btn-dark align-self-center";
 categoriesBtn.textContent = "Apply Filter";
 categoriesContainer.appendChild(btnContainer);
 btnContainer.appendChild(categoriesBtn);

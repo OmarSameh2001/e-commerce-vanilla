@@ -53,7 +53,7 @@
   position: absolute;
   bottom: 25px; 
   right: 25px; 
-  background-color: #007bff;
+  background-color: #9D9C9C;
   color: white;
   border-radius: 50%;
   width: 50px; 
@@ -138,12 +138,12 @@
 }
 
 .form-input:focus {
-  border-color: #007bff;
+  border-color: #9D9C9C;
 }
 
 /* Update Button */
 .update-button {
-  background: #007bff;
+  background: #9D9C9C;
   color: white;
   padding: 15px 40px; 
   border: none;
@@ -183,7 +183,7 @@
 }
 
 .country-code-select:focus {
-  border-color: #007bff;
+  border-color: #9D9C9C;
 }
 
 /* Style the phone input */

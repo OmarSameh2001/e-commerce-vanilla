@@ -13,12 +13,12 @@ footer h6 {
 footer a {
     color: #555;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-footer li:hover {
-    color: #000;
-    transition: all 0.5s ease;
-    transform: scale(1.1);
+footer a:hover {
+    color: #9D9C9C;
+    text-decoration: none;
 }
 
 .row > div {
@@ -55,5 +55,5 @@ footer li:hover {
 .footer-icons a:hover {
     background-color: #333;
     color: #fff;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }

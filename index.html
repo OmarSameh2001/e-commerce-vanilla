@@ -1,76 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
     <title>Trendify</title>
     <script src="protect.js"></script>
-    <link rel="shortcut icon" href="https://ci.suez.edu.eg/wp-content/uploads/2022/08/iti-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link
+      rel="shortcut icon"
+      href="https://ci.suez.edu.eg/wp-content/uploads/2022/08/iti-logo.png"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <script src="index.js" type="module" defer></script>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="./navbar/nav.css">
-    <link rel="stylesheet" href="./footer/footer.css">
-</head>
-<body>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./navbar/nav.css" />
+    <link rel="stylesheet" href="./footer/footer.css" />
+  </head>
+  <body>
     <div class="navbar"></div>
     <div class="home">
-        <div class="header">
-            <div class="position-relative overflow-hidden p-3 m-md-3 text-center">
-                <div class="col-md-5 p-lg-5 mx-auto my-5">
-                  <h1 class="display-4 fw-normal">Trendify</h1>
-                  <p class="lead fw-normal">
-                    Trendify is a proud local Egyptian brand that specializes in crafting
-                    and selling high-quality clothing, all manufactured in-house to ensure
-                    exceptional standards of design and craftsmanship.
-                  </p>
-                <a class="btn btn-outline-dark" href="./products/products.html">Shop Now</a>
-                </div>
-                <div class="product-device shadow-sm d-none d-md-block"></div>
-                <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+      <div class="header">
+        <div
+          id="carouselExampleFade"
+          class="carousel slide carousel-fade header_img"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <!-- First Slide -->
+            <div class="carousel-item active">
+              <img src="./assets/banner1.jpg" class="d-block w-100" alt="..." />
+              <div
+                class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
+              >
+                <h1 class="display-4 fw-bold p-3 rounded">Trendify</h1>
+                <p class="lead fw-normal p-3 rounded" style="width: 80%">
+                  Trendify is a proud local Egyptian brand that specializes in
+                  crafting and selling high-quality clothing, all manufactured
+                  in-house to ensure exceptional standards.
+                </p>
               </div>
-            <img src="assets/banner.jpg" class="header_img" alt="logo">
-        </div>
-        <div class="categories">
-            <h1 class="categories_title">Categories</h1>
-            <div class="categories_slider">
-                <div class="category" data-category="T-shirt">
-                    <img src="https://img-lcwaikiki.mncdn.com/mnresize/1020/1360/pim/productimages/20231/6335249/v1/l_20231-s3ca89z8-lgs-98-76-97-189_a.jpg" class="category_img" alt="T-Shirt" loading="lazy">
-                    <h2 class="category_text">T-Shirt</h2>
-                </div>
-                <div class="category" data-category="Hoodie">
-                    <img src="https://m.media-amazon.com/images/I/41c1tw8hr9L._AC_.jpg" class="category_img" alt="Hoodie" loading="lazy">
-                    <h2 class="category_text">Hoodie</h2>
-                </div>
-                <div class="category" data-category="Pants">
-                    <img src="https://image.shopittome.com/apparel_images/fb/guess-guess-womens-zoe-pant-extra-small-abvaa1bbce2_c.jpg" class="category_img" alt="Pants" loading="lazy">
-                    <h2 class="category_text">Pants</h2>
-                </div>
-                <div class="category" data-category="Socks">
-                    <img src="https://m.media-amazon.com/images/I/81VJlcGIjkL._AC_SY741_.jpg" class="category_img" alt="Socks" loading="lazy">
-                    <h2 class="category_text">Socks</h2>
-                </div>
-                <div class="category" data-category="Shorts">
-                    <img src="https://tiimg.tistatic.com/fp/1/008/388/18-inches-lace-closure-cotton-plain-shorts-for-ladies--980.jpg" class="category_img" alt="Shorts" loading="lazy">
-                    <h2 class="category_text">Shorts</h2>
-                </div>
-                <div class="category" data-category="Cap">
-                    <img src="https://images.asos-media.com/products/cotton-on-6-panel-baseball-cap-with-nyc-graphic/206782655-1-black?$n_640w$&wid=513&fit=constrain" class="category_img" alt="Cap" loading="lazy">
-                    <h2 class="category_text">Cap</h2>
-                </div>
-                <div class="category" data-category="Sweatshirt">
-                    <img src="https://uptownie.com/cdn/shop/files/defaultheartsweatshirt2.jpg?v=1734339740" class="category_img" alt="Sweatshirt" loading="lazy">
-                    <h2 class="category_text">Sweatshirt</h2>
-                </div>
-                <div class="category" data-category="Tracksuit">
-                    <img src="https://www.bolf.eu/eng_pl_Mens-Tracksuit-with-Hood-Khaki-Bolf-27C8116-89708_10.jpg" class="category_img" alt="Tracksuit" loading="lazy">
-                    <h2 class="category_text">Tracksuit</h2>
-                </div>
             </div>
+
+            <!-- Second Slide -->
+            <div class="carousel-item">
+              <img
+                src="./assets/banner2.jpg"
+                class="d-block w-100"
+                alt="Our Third Banner"
+              />
+              <div
+                class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
+              >
+                <h1 class="display-4 fw-bold text-black p-3 rounded">
+                  Trendify
+                </h1>
+                <p
+                  class="lead fw-normal text-black p-3 rounded"
+                  style="width: 80%"
+                >
+                  Trendify is a proud local Egyptian brand that specializes in
+                  crafting and selling high-quality clothing, all manufactured
+                  in-house to ensure exceptional standards.
+                </p>
+              </div>
+            </div>
+
+            <!-- Third Slide -->
+            <div class="carousel-item">
+              <img
+                src="./assets/banner3.jpg"
+                class="d-block w-100"
+                alt="Our Third Banner"
+              />
+              <div
+                class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
+              >
+                <h1 class="display-4 fw-bold text-black p-3 rounded">
+                  Trendify
+                </h1>
+                <p
+                  class="lead fw-normal text-black p-3 rounded"
+                  style="width: 80%"
+                >
+                  Trendify is a proud local Egyptian brand that specializes in
+                  crafting and selling high-quality clothing, all manufactured
+                  in-house to ensure exceptional standards.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="home_products"></div>
+      </div>
+      <div class="categories"></div>
+      <div class="home_products"></div>
     </div>
+    <div class="about"></div>
     <div class="footer"></div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

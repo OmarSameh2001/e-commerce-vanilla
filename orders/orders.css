@@ -3,7 +3,7 @@
 }
 
 .state-button.active {
-    background-color: #28a745;
-    color: #fff;
-    border-color: #28a745;
+    background-color: #28a745 !important;
+    color: #fff !important;
+    border-color: #28a745 !important;
 }

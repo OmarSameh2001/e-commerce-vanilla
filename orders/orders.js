@@ -11,32 +11,80 @@ const userNameElement = document.getElementById("user-name");
 userNameElement.textContent = currentUser;
 
 if (orders) {
-  orders.forEach((order) => {
+  orders.forEach((order, index) => {
     const orderDate = new Date(order.date);
     const currentDate = new Date();
     const deliveryDate = new Date(orderDate.getTime() + 7 * 24 * 60 * 60 * 1000);
 
-    let orderTotalPrice = 0;
-    order.cart.forEach((item) => {
-      orderTotalPrice += item.price * item.quantity; // Multiply price by quantity
-    });
+    // Get the orders data
+    const orders = JSON.parse(localStorage.getItem(`${currentUser}-orders`));
 
-    const orderHTML = `
-      <tr>
-        <td>${orders.indexOf(order) + 1}</td>
-        <td>${order.orderId}</td>
-        <td>${orderDate.toLocaleDateString()}</td>
-        <td>${order.cart.length}</td>
-        <td>${orderTotalPrice} EGP</td>
-        <td><button type="button" class="btn btn-outline-danger state-button ${currentDate > deliveryDate ? 'active' : ''}">${currentDate > deliveryDate ? 'Delivered' : 'Delivering'}</button></td>
-      </tr>
+    // Create the orders table rows
+    const orderHtml = `
+<tr>
+  <td class="align-content-center">${index + 1}</td> <!-- Modified line -->
+  <td class="align-content-center">${order.orderId}</td>
+  <td class="align-content-center">${order.date}</td>
+  <td class="align-content-center">${order.cart.length}</td>
+  <td class="align-content-center">${order.price} EGP</td>
+  <td class="align-content-center">${order.address}</td>
+  <td class="align-content-center"><button type="button" class="btn btn-danger state-button ${currentDate > deliveryDate ? 'active' : ''}">${currentDate > deliveryDate ? 'Delivered' : 'Delivering'}</button></td>
+  <td class="align-content-center">
+    <button
+      class="accordion-button collapsed"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#flush-collapse-${index}"
+      aria-expanded="false"
+      aria-controls="flush-collapse-${index}"
+    >
+      <i class="fas fa-angle-down"></i>
+    </button>
+  </td>
+</tr>
+`;
+    document.getElementById('orders-table').innerHTML += orderHtml;
+
+    // Create the accordion element
+    const accordionHtml = `
+      <div
+        id="flush-collapse-${index}"
+        class="accordion-collapse collapse"
+        aria-labelledby="flush-heading-${index}"
+        data-bs-parent="#accordionFlushExample-${index}"
+      >
+        <div class="accordion-body">
+          <table class="table">
+            <thead class="table-dark text-center">
+              <tr>
+                <th>Item Name</th>
+                <th>Item Size</th>
+                <th>Item Color</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${order.cart.map((item) => `
+                <tr>
+                  <td class="text-center">${item.name}</td>
+                  <td class="text-center">${item.size}</td>
+                  <td class="text-center">${item.color}</td>
+                  <td class="text-center">${item.quantity}</td>
+                  <td class="text-center">${item.price} EGP</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
     `;
-    ordersTable.innerHTML += orderHTML;
+    document.getElementById('accordion-container').innerHTML += accordionHtml;
   });
 } else {
   ordersTable.innerHTML = `
     <tr>
-      <td colspan="7">No orders found.</td>
+      <td colspan="8">No orders found.</td>
     </tr>
   `;
 }
