@@ -210,11 +210,13 @@ function viewCart() {
         cartItems.forEach((item) => {
           totalPrice += item.price * item.quantity;
         });
+
         if (discount.value === "trendify") {
           discountAmount = 0.25;
-          document.querySelector(".total-price").innerText = `${
-            totalPrice * (1 - discountAmount)
-          } EGP`;
+          totalPrice = totalPrice * (1 - discountAmount);
+          document.querySelector(
+            ".total-price"
+          ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Discounted price";
           enterYourCode.innerHTML = `<label
                             class="form-label enter-your-code"
@@ -254,9 +256,10 @@ function viewCart() {
         });
         if (discount.value === promoCode) {
           discountAmount = 0.25;
-          document.querySelector(".total-price").innerText = `${
-            totalPrice * (1 - discountAmount)
-          } EGP`;
+          totalPrice = totalPrice * (1 - discountAmount);
+          document.querySelector(
+            ".total-price"
+          ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Discounted price";
           enterYourCode.innerHTML = `<label
                             class="form-label enter-your-code"
@@ -294,9 +297,10 @@ function viewCart() {
         });
         if (discount.value === promoCode) {
           discountAmount = 0.25;
-          document.querySelector(".total-price").innerText = `${
-            totalPrice * (1 - discountAmount)
-          } EGP`;
+          totalPrice = totalPrice * (1 - discountAmount);
+          document.querySelector(
+            ".total-price"
+          ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Discounted price";
           enterYourCode.innerHTML = `<label
                             class="form-label enter-your-code"
@@ -457,9 +461,8 @@ function viewCart() {
     discount.onchange = function (e) {
       if (e.target.value === promoCode) {
         discountAmount = 0.25;
-        document.querySelector(".total-price").innerText = `${
-          totalPrice * (1 - discountAmount)
-        } EGP`;
+        totalPrice = totalPrice * (1 - discountAmount);
+        document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
         totalPriceLabel.innerText = "Discounted price";
         enterYourCode.innerHTML = `<label
                           class="form-label enter-your-code"
@@ -480,12 +483,15 @@ function viewCart() {
     };
 
     document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
-    if(totalPrice == 0){
-    document.querySelector(".proceed-to-checkout").disabled = true;
-    }else{
+    if (totalPrice == 0) {
+      document.querySelector(".proceed-to-checkout").disabled = true;
+    } else {
       document.querySelector(".proceed-to-checkout").disabled = false;
     }
     document.querySelector(".proceed-to-checkout").onclick = async function () {
+      cartItems.totalPrice = totalPrice;
+      localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
+      console.log(`total price = ${cartItems.totalPrice} `);
       console.log(cartItems, user.address);
       const orderName = `${currentUser}-Order-${Date.now()}`;
       console.log(orderName);
