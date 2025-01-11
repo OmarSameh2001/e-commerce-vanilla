@@ -90,7 +90,7 @@ try {
 } catch (e) {}
 function viewCart() {
   try {
-    const userAddress = user.address;
+    const userAddress = user.address ? user.address : "";
     document.getElementById("shipping-address").value = `${userAddress}`;
     console.log(currentUser);
     let cartItems = getCartItems();
@@ -489,13 +489,13 @@ function viewCart() {
       document.querySelector(".proceed-to-checkout").disabled = false;
     }
     document.querySelector(".proceed-to-checkout").onclick = async function () {
-      cartItems.totalPrice = totalPrice;
+      if(user.address == null){
+        alert("Please enter your address");
+        return
+      }
       localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
-      console.log(`total price = ${cartItems.totalPrice} `);
-      console.log(cartItems, user.address);
-      const orderName = `${currentUser}-Order-${Date.now()}`;
-      console.log(orderName);
-      console.log(totalPrice);
+      localStorage.setItem("price", totalPrice);
+      localStorage.setItem("address", user.address);
       createStripeCheckout();
     };
   } catch (error) {}
