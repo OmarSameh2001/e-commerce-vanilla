@@ -99,15 +99,11 @@ for (let i = 1; i < rows.length; i++) {
   tableData.push(rowData);
 }
 
-console.log(tableData);
 
 // Get the names and values from the local storage of currentuser-orders
 const ordersData = JSON.parse(localStorage.getItem(`${currentUser}-orders`));
 const ordersKeys = Object.keys(ordersData[0]);
 const ordersValues = ordersData.map((order) => Object.values(order));
-
-console.log(ordersKeys);
-console.log(ordersValues);
 
 // Navbar and footer loading
 const navbarHtml = document.querySelector(".navbar");

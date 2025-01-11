@@ -3,7 +3,6 @@ const currentUser =
   sessionStorage.getItem("currentUser").slice(1, -1);
 
 const users = JSON.parse(localStorage.getItem("usersData"));
-console.log(users);
 
 const user = users.find((user) => user.username === currentUser);
 
@@ -83,7 +82,6 @@ try {
     const address = document.getElementById("shipping-address").value;
     if (address && user.address !== address) {
       user.address = address;
-      console.log(users);
       localStorage.setItem("usersData", JSON.stringify(users));
     }
   });
@@ -92,7 +90,6 @@ function viewCart() {
   try {
     const userAddress = user.address ? user.address : "";
     document.getElementById("shipping-address").value = `${userAddress}`;
-    console.log(currentUser);
     let cartItems = getCartItems();
     document.querySelector(".user-name").innerText = `SHOPPING CART`;
     let firstChild;
@@ -422,9 +419,6 @@ function viewCart() {
       NinthChildSelect.classList.add("form-select");
       NinthChildSelect.onchange = function () {
         cartItems[i].size = this.value;
-        console.log(
-          `item ${cartItems[i].name} has a ${cartItems[i].size} size`
-        );
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
       for (let j = 0; j < Sizes.length; j++) {
@@ -516,7 +510,6 @@ async function createStripeCheckout() {
     }
   );
   const baseUrl = window.location.origin;
-  console.log(baseUrl);
   stripe.redirectToCheckout({
     mode: "payment",
     successUrl: baseUrl + "/payment/success.html",

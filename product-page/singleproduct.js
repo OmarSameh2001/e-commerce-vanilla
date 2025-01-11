@@ -8,10 +8,8 @@ function queryString() {
 }
 
 const id = queryString();
-console.log(id);
 const products = JSON.parse(localStorage.getItem("products"));
 const product = products.find((product) => product.id === id);
-console.log(product);
 
 function updateCartButton(productId) {
     const cartBtn = document.querySelector('.cart_btn');

@@ -160,7 +160,6 @@ function viewWishlist() {
     for (let i = 0; i < cartItems.length; i++) {
       cartItems[i].quantity = 1;
       cartItems[i].color = "";
-      console.log(cartItems);
       firstChild = document.createElement("div");
       firstChild.classList.add(
         "row",
@@ -239,7 +238,6 @@ function viewWishlist() {
       SeventhChildDivAnchor.classList.add("text-muted");
       SeventhChildDivAnchor.onclick = function (e) {
         e.preventDefault();
-        console.log(cartItems[i].id);
         removeFromWishlist(cartItems[i].id);
         location.reload();
       };
