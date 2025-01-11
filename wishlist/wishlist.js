@@ -254,7 +254,7 @@ function viewWishlist() {
       LastChild.classList.add("my-4");
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 viewWishlist();
