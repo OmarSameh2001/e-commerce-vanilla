@@ -130,6 +130,7 @@
     height: 70%;
     object-fit: cover;
     border-bottom: 1px solid #ddd;
+    cursor: pointer;
 }
 
 .category_text {
@@ -140,4 +141,5 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     font-family: 'Arial', sans-serif;
+    cursor: pointer;
 }

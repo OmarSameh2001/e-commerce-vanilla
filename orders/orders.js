@@ -45,14 +45,10 @@ if (orders) {
 `;
     document.getElementById('orders-table').innerHTML += orderHtml;
 
-    // Create the accordion element
     const accordionHtml = `
-      <div
-        id="flush-collapse-${index}"
-        class="accordion-collapse collapse"
-        aria-labelledby="flush-heading-${index}"
-        data-bs-parent="#accordionFlushExample-${index}"
-      >
+  <tr>
+    <td colspan="8">
+      <div id="flush-collapse-${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading-${index}" data-bs-parent="#accordionFlushExample-${index}">
         <div class="accordion-body">
           <table class="table">
             <thead class="table-dark text-center">
@@ -78,8 +74,10 @@ if (orders) {
           </table>
         </div>
       </div>
-    `;
-    document.getElementById('accordion-container').innerHTML += accordionHtml;
+    </td>
+  </tr>
+`;
+    document.getElementById('orders-table').innerHTML += accordionHtml;
   });
 } else {
   ordersTable.innerHTML = `
@@ -116,22 +114,21 @@ const navbarHtml = document.querySelector(".navbar");
 const footerHtml = document.querySelector(".footer");
 
 fetch("../navbar/nav.html")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
-    }
-    return response.text();
-  })
-  .then((html) => {
-    navbarHtml.innerHTML = html;
-  })
+  .then((response) => response.text())
+  .then((html) => (navbarHtml.innerHTML = html))
   .then(() => {
+    const currentUser = localStorage.getItem("currentUser")
+      ? localStorage.getItem("currentUser").slice(1, -1)
+      : sessionStorage.getItem("currentUser").slice(1, -1);
+    document.getElementById("userName").innerHTML = currentUser;
     const logoutElement = document.getElementById("logout");
     logoutElement.style.cursor = "pointer";
     if (currentUser) {
       logoutElement.innerHTML = "Logout";
       logoutElement.onclick = () => {
-        const confirmLogout = window.confirm("Are you sure you want to logout?");
+        const confirmLogout = window.confirm(
+          "Are you sure you want to logout?"
+        );
         if (confirmLogout) {
           localStorage.removeItem("currentUser");
           sessionStorage.removeItem("currentUser");
@@ -139,12 +136,10 @@ fetch("../navbar/nav.html")
         }
       };
     } else {
-      document.getElementById("dropdown").display = " none";
+      document.getElementById("dropdown").display = "none";
     }
   })
-  .catch((error) => {
-    console.error("Error loading navbar:", error);
-  });
+  .catch((error) => console.error("Error loading navbar:", error));
 
 fetch("../footer/footer.html")
   .then((response) => {
