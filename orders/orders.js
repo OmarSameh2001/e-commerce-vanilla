@@ -26,8 +26,8 @@ if (orders) {
   <td class="align-content-center">${order.orderId}</td>
   <td class="align-content-center">${order.date}</td>
   <td class="align-content-center">${order.cart.length}</td>
-  <td class="align-content-center">${order.price} EGP</td>
-  <td class="align-content-center">${order.address}</td>
+  <td class="align-content-center">${order.totalPrice} EGP</td>
+  <td class="align-content-center">${order.address || 'TBD'}</td>
   <td class="align-content-center"><button type="button" class="btn btn-danger state-button ${currentDate > deliveryDate ? 'active' : ''}">${currentDate > deliveryDate ? 'Delivered' : 'Delivering'}</button></td>
   <td class="align-content-center">
     <button

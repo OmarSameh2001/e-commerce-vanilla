@@ -8,9 +8,9 @@ fetch("./navbar/nav.html")
   .then((response) => response.text())
   .then((html) => (navbarHtml.innerHTML = html))
   .then(() => {
-    const currentUser = localStorage.getItem("currentUser") ?
-      localStorage.getItem("currentUser").slice(1, -1) :
-      sessionStorage.getItem("currentUser").slice(1, -1);
+    const currentUser = localStorage.getItem("currentUser")
+      ? localStorage.getItem("currentUser").slice(1, -1)
+      : sessionStorage.getItem("currentUser").slice(1, -1);
     document.getElementById("userName").innerHTML = currentUser;
     const logoutElement = document.getElementById("logout");
     logoutElement.style.cursor = "pointer";
@@ -32,9 +32,18 @@ fetch("./navbar/nav.html")
   })
   .catch((error) => console.error("Error loading navbar:", error));
 
-  fetch("./categories/categories.html")
+fetch("./categories/categories.html")
   .then((response) => response.text())
   .then((html) => (categoriesHtml.innerHTML = html))
+  .then(() => {
+    // Handle category clicks
+    document.querySelectorAll(".category").forEach((category) => {
+      category.addEventListener("click", () => {
+        const selectedCategory = category.getAttribute("data-category");
+        window.location.href = `../products/products.html?category=${selectedCategory}`;
+      });
+    });
+  })
   .catch((error) => console.error("Error loading categories:", error));
 
 fetch("./about/about.html")
