@@ -13,21 +13,25 @@
 </head>
 <body>
   <div class="navbar"></div>
-     <section class="top-sec mt-5">
+     <section class="top-sec">
         <div id="container">
             <h1>Contact US</h1>
             <div class="underline"></div>
-            <form action="#" method="post" id="contact_form">
+            <form action="https://formspree.io/f/xqaawwkj" method="POST" id="contact_form">
               <div class="name">
+                <label for="name">Name</label>
                 <input type="text" placeholder="My name is" name="name" id="name_input" required>
               </div>
               <div class="email">
+                <label for="email">Email</label>
                 <input type="email" placeholder="My e-mail is" name="email" id="email_input" required>
               </div>
               <div class="telephone">
+                <label for="telephone">Telephone</label>
                 <input type="text" placeholder="My number is" name="telephone" id="telephone_input" required>
               </div>
               <div class="subject">
+                <label for="subject">Subject</label>
                 <select name="subject" id="subject_input" required>
                     <option disabled hidden selected>Subject line</option>
                     <option>Order Issues</option>
@@ -38,18 +42,20 @@
                 </select>
               </div>
               <div class="message">
+                <label for="message">Message</label>
                 <textarea name="message" placeholder="I'd like to chat about" id="message_input" cols="30" rows="5" required></textarea>
               </div>
               <div class="submit">
-                <input type="submit" value="Send Message" id="form_button">
+                <button type="submit" id="form_button">Send Message</button>
               </div>
+              
             </form>
         </div>
-        <div class="direct-contact-container mt-5">
+        <div class="direct-contact-container">
             <ul class="contact-list">
               <li class="list-item">
                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                <span class="contact-text place">New Capital, Egypt</span>
+                <span class="contact-text place">Knowledge, City, New Capital, Egypt</span>
               </li>
               <li class="list-item">
                 <i class="fa fa-phone fa-2x" aria-hidden="true"></i>
@@ -58,27 +64,29 @@
               <li class="list-item">
                 <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
                 <span class="contact-text gmail">
-                  <a href="mailto:iti@iti.gov.eg" title="Send me an email">iti@iti.gov.eg</a>
+                  <a href="mailto:itiknowledgecity@iti.gov.eg" title="Send me an email">itiknowledgecity@iti.gov.eg</a>
                 </span>
               </li>
             </ul>
+            <hr>
             <ul class="social-media-list">
+              <a href="https://github.com/OmarSameh2001/e-commerce-vanilla" target="_blank" class="contact-icon" rel="noopener" style="text-decoration: none;"> 
                 <li>
-                    <a href="https://github.com/OmarSameh2001/e-commerce-vanilla" target="_blank" class="contact-icon" rel="noopener"> 
                       <i class="fa-brands fa-github" aria-hidden="true"></i>
-                    </a>
-                </li>
+                    </li>
+                  </a>
+                  <a style="text-decoration: none;" href="https://www.linkedin.com/school/information-technology-institute-iti-/?originalSubdomain=eg" target="_blank" class="contact-icon" rel="noopener">
                 <li>
-                    <a href="https://www.linkedin.com/school/information-technology-institute-iti-/?originalSubdomain=eg" target="_blank" class="contact-icon" rel="noopener">
                       <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
-                    </a>
-                </li>
+                    </li>
+                  </a>
+                  <a style="text-decoration: none;" href="https://www.instagram.com/itians_newcapital?igsh=MThweTdlZm5qb2N0OA==" target="_blank" class="contact-icon" rel="noopener">
                 <li>
-                    <a href="https://www.instagram.com/itians_newcapital?igsh=MThweTdlZm5qb2N0OA==" target="_blank" class="contact-icon" rel="noopener">
                       <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-                    </a>
-                </li>       
+                    </li>       
+                  </a>
             </ul>
+            <hr>
         </div>
      </section>
      <h1>Come visit</h1>
@@ -90,6 +98,4 @@
     <div class="footer"></div>
     <script src="contact.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
-

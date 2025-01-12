@@ -193,6 +193,22 @@ fetch("../navbar/nav.html")
     } else {
       document.getElementById("dropdown").display = "none";
     }
+
+    const userName = document.getElementById("userName");
+    userName.addEventListener("click", function () {
+      window.location.href = "../profilepage/profilepage.html";
+    });
+    userName.style.cursor = "pointer";
+    
+    const logoutmini = document.getElementById("logout-mini");
+    logoutmini.addEventListener("click", function () {
+      const confirmLogout = window.confirm("Are you sure you want to logout?");
+      if (confirmLogout) {
+        localStorage.removeItem("currentUser");
+        sessionStorage.removeItem("currentUser");
+        window.location.href = "../user/user.html";
+      }
+    });
   })
   .catch((error) => {
     console.error("There was a problem with the fetch operation:", error);
