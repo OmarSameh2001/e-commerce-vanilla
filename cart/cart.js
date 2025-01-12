@@ -88,354 +88,182 @@ try {
 } catch (e) {}
 function viewCart() {
   try {
-    const userAddress = user.address ? user.address : "";
-    document.getElementById("shipping-address").value = `${userAddress}`;
-    let cartItems = getCartItems();
+    const userAddress = user.address;
+    document.getElementById("shipping-address").value = userAddress;
+    const cartItems = getCartItems();
     document.querySelector(".user-name").innerText = `SHOPPING CART`;
-    let firstChild;
-    let horizontalLine;
-    let secondChild;
-    let secondChildImg;
-    let thirdChild;
-    let thirdChildH6;
-    let fourthChild;
-    let fourthChildButtonMinus;
-    let fourthChildInput;
-    let fourthChildButtonPlus;
-    let fifthChild;
-    let fifthChildH6;
-    let sixthChild;
-    let SixthChildDiv;
-    let SixthChildDivAnchor;
-    let SixthChildDivSpan;
-    let SeventhChild;
-    let SeventhChildDiv;
-    let SeventhChildDivAnchor;
-    let SeventhChildDivSpan;
-    let EighthChild;
-    let EighthChildLabel;
-    let EighthChildSelect;
-    let EighthChildSelectOption;
-    let NinthChild;
-    let NinthChildLabel;
-    let NinthChildSelect;
-    let NinthChildSelectOption; //10items
-    let Colors = [
-      "Red",
-      "Blue",
-      "Green",
-      "Yellow",
-      "Orange",
-      "Purple",
-      "Pink",
-      "Brown",
-      "Gray",
-      "black",
-    ];
-    let Sizes = ["Small", "Medium", "Large", "XL", "XXL", "XXXL"];
-    let LastChild;
-    let SummaryChild;
-    let FirstSummaryChildH5;
-    let FirstSummaryChild2H5;
-    let totalPrice = 0;
-    let discountAmount = 0;
-    let originalPrice = 0;
-    const promoCode = "trendify";
-    const promoCodeh5 = document.querySelector(".promo-code");
-    //this is the parentDiv that will contain everything inside it.
+    document.querySelector(".user-name").classList.add(`mt-5`, `mb-0`);
     const parentDiv = document.querySelector(".parent-cart");
-    const discount = document.querySelector(".discount");
-    const totalPriceLabel = document.querySelector(".total-price-label");
-
-    parentDiv.firstElementChild.lastElementChild.textContent = `${cartItems.length} Items`;
     const parentSummary = document.querySelector(".parent-summary");
-    for (let i = 0; i < cartItems.length; i++) {
-      //set initial values for size,quantity,color if not set before.
-      cartItems[i].size = cartItems[i].size || "Small";
-      cartItems[i].quantity = cartItems[i].quantity || 1;
-      cartItems[i].color = cartItems[i].color || "Red";
-      localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
-      firstChild = document.createElement("div");
-      firstChild.classList.add(
-        "row",
-        "mb-4",
-        "d-flex",
-        "justify-content-between",
-        "align-items-center"
-      );
-      horizontalLine = document.createElement("hr");
-      horizontalLine.classList.add("my-4");
-      parentDiv.appendChild(horizontalLine);
-      parentDiv.appendChild(firstChild);
-      secondChild = document.createElement("div");
-      secondChild.classList.add("col-md-2", "col-lg-2", "col-xl-2");
-      secondChildImg = document.createElement("img");
-      secondChildImg.src = `${cartItems[i].picture}`;
-      secondChildImg.classList.add("img-fluid", "rounded-3");
-      secondChildImg.alt = `${cartItems[i].name}`;
-      secondChild.appendChild(secondChildImg);
-      firstChild.appendChild(secondChild);
-      thirdChild = document.createElement("div");
-      thirdChild.classList.add("col-md-3", "col-lg-3", "col-xl-3");
-      thirdChildH6 = document.createElement("h6");
-      thirdChildH6.textContent = `${cartItems[i].name}`;
-      thirdChild.appendChild(thirdChildH6);
-      firstChild.appendChild(thirdChild);
+    parentSummary.classList.add("mt-5");
+    const promoCode = "trendify";
+    let totalPrice = 0;
+    let originalPrice = 0;
 
-      fourthChild = document.createElement("div");
-      fourthChild.classList.add("col-md-3", "col-lg-3", "col-xl-2", "d-flex");
-      fourthChildButtonMinus = document.createElement("button");
-      fourthChildButtonMinus.classList.add("btn", "btn-link", "px-2");
-      // fourthChildButtonMinus.addEventListener("onclick", function () {});
-      fourthChildButtonMinus.innerHTML = '<i class="fas fa-minus"></i>';
-      fourthChildInput = document.createElement("input");
-      fourthChildInput.id = "form1";
-      fourthChildInput.min = "0";
-      fourthChildInput.name = "quantity";
-      fourthChildInput.value = `${cartItems[i].quantity}`;
-      fourthChildInput.type = "number";
-      fourthChildInput.onchange = function () {
-        cartItems[i].quantity = this.value;
-        document.querySelectorAll(".items-price")[i].textContent = `${
-          cartItems[i].price
-        } EGP x ${cartItems[i].quantity} = ${
-          cartItems[i].price * cartItems[i].quantity
-        } EGP`;
-        totalPrice = 0;
-        cartItems.forEach((item) => {
-          totalPrice += item.price * item.quantity;
-        });
-        originalPrice = totalPrice;
-        if (discount.value === "trendify") {
-          discountAmount = 0.25;
-          totalPrice = totalPrice * (1 - discountAmount);
-          document.querySelector(
-            ".total-price"
-          ).innerText = `${totalPrice} EGP`;
-          totalPriceLabel.innerText = "Discounted price";
-        } else {
-          discountAmount = 0;
-          totalPrice = originalPrice;
-          document.querySelector(
-            ".total-price"
-          ).innerText = `${totalPrice} EGP`;
-          totalPriceLabel.innerText = "Total price";
-          console.log(enterYourCode);
-        }
-        localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
-      };
-      fourthChildInput.classList.add("form-control", "form-control-sm");
-      fourthChildButtonPlus = document.createElement("button");
-      fourthChildButtonPlus.classList.add("btn", "btn-link", "px-2");
-      fourthChildButtonMinus.onclick = function (e) {
-        this.parentNode.querySelector("input[type=number]").stepDown();
-        cartItems[i].quantity =
-          this.parentNode.querySelector("input[type=number]").value;
-        document.querySelectorAll(".items-price")[i].textContent = `${
-          cartItems[i].price
-        } EGP x ${cartItems[i].quantity} = ${
-          cartItems[i].price * cartItems[i].quantity
-        } EGP`;
-        totalPrice = 0;
-        cartItems.forEach((item) => {
-          totalPrice += item.price * item.quantity;
-        });
-        originalPrice = totalPrice;
-        if (discount.value === promoCode) {
-          discountAmount = 0.25;
-          totalPrice = totalPrice * (1 - discountAmount);
-          document.querySelector(
-            ".total-price"
-          ).innerText = `${totalPrice} EGP`;
-          totalPriceLabel.innerText = "Discounted price";
-        } else {
-          discountAmount = 0;
-          totalPrice = originalPrice;
-          document.querySelector(
-            ".total-price"
-          ).innerText = `${totalPrice} EGP`;
-          totalPriceLabel.innerText = "Total price";
-        }
-        localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
-      };
-      fourthChildButtonPlus.innerHTML = '<i class="fas fa-plus"></i>';
-      fourthChildButtonPlus.onclick = function (e) {
-        this.parentNode.querySelector("input[type=number]").stepUp();
-        cartItems[i].quantity =
-          this.parentNode.querySelector("input[type=number]").value;
-        document.querySelectorAll(".items-price")[i].textContent = `${
-          cartItems[i].price
-        } EGP x ${cartItems[i].quantity} = ${
-          cartItems[i].price * cartItems[i].quantity
-        } EGP`;
-        totalPrice = 0;
-        cartItems.forEach((item) => {
-          totalPrice += item.price * item.quantity;
-        });
-        originalPrice = totalPrice;
-        if (discount.value === promoCode) {
-          discountAmount = 0.25;
-          totalPrice = totalPrice * (1 - discountAmount);
-          document.querySelector(
-            ".total-price"
-          ).innerText = `${totalPrice} EGP`;
-          totalPriceLabel.innerText = "Discounted price";
-        } else {
-          discountAmount = 0;
-          totalPrice = originalPrice;
-          document.querySelector(
-            ".total-price"
-          ).innerText = `${totalPrice} EGP`;
-          totalPriceLabel.innerText = "Total price";
-        }
+    const updateCart = () => {
+      totalPrice = cartItems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
+      originalPrice = totalPrice;
+      const discount =
+        document.querySelector(".discount").value === promoCode ? 0.25 : 0;
+      totalPrice *= 1 - discount;
+      document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
+      document.querySelector(".total-price-label").innerText = discount
+        ? "Discounted price"
+        : "Total price";
+      document.querySelector(".proceed-to-checkout").disabled =
+        totalPrice === 0;
+    };
 
+    // Add onchange event to promo code input
+    const promoInput = document.querySelector(".discount");
+    if (promoInput) {
+      promoInput.onchange = updateCart;
+    }
+
+    cartItems.forEach((item, i) => {
+      item.size = item.size || "Small";
+      item.quantity = item.quantity || 1;
+      item.color = item.color || "Red";
+
+      const row = document.createElement("div");
+      row.className =
+        "row mb-4 d-flex justify-content-between align-items-center";
+      row.innerHTML = `
+        <hr class="mb-4">
+        <div class="col-md-2 col-lg-2 col-xl-2">
+          <img src="${item.picture}" class="img-fluid rounded-3" alt="${
+        item.name
+      }">
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3">
+          <h6>${item.name}</h6>
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+          <button class="btn btn-link px-2"><i class="fas fa-minus"></i></button>
+          <input type="number" id="form1" name="quantity" min="0" class="form-control form-control-sm" value="${
+            item.quantity
+          }">
+          <button class="btn btn-link px-2"><i class="fas fa-plus"></i></button>
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+          <h6 class="mb-0">${item.price} EGP</h6>
+        </div>
+        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+          <div class="icon-box">
+            <a href="#" class="text-muted addToWishlist"><i class="fa-regular fa-heart"></i></a>
+            <span class="tooltip">Add to Wishlist</span>
+          </div>
+        </div>
+        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+          <div class="icon-box">
+            <a href="#" class="text-muted removeFromCart"><i class="fas fa-times "></i></a>
+            <span class="tooltip">Remove from Cart</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3 mt-3">
+          <label class="form-label">Select Color</label>
+          <select id="colorSelect" class="form-select">
+            ${[
+              "Red",
+              "Blue",
+              "Green",
+              "Yellow",
+              "Orange",
+              "Purple",
+              "Pink",
+              "Brown",
+              "Gray",
+              "black",
+            ]
+              .map(
+                (color) =>
+                  `<option value="${color}" ${
+                    color === item.color ? "selected" : ""
+                  }>${color}</option>`
+              )
+              .join("")}
+          </select>
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3 mt-3">
+          <label class="form-label">Select Size</label>
+          <select id="sizeSelect" class="form-select">
+            ${["Small", "Medium", "Large", "XL", "XXL", "XXXL"]
+              .map(
+                (size) =>
+                  `<option value="${size}" ${
+                    size === item.size ? "selected" : ""
+                  }>${size}</option>`
+              )
+              .join("")}
+          </select>
+        </div>`;
+
+      parentDiv.appendChild(row);
+      const quantityInput = row.querySelector("input[type=number]");
+      const minusButton = row.querySelector("button:nth-child(1)");
+      const plusButton = row.querySelector("button:nth-child(3)");
+      const colorSelect = row.querySelector("#colorSelect");
+      const sizeSelect = row.querySelector("#sizeSelect");
+      const deleteFromCart = row.querySelector(".removeFromCart");
+      const insertToWishlist = row.querySelector(".addToWishlist");
+      console.log(insertToWishlist);
+      const updateItem = () => {
+        if (quantityInput.value >= 1) {
+          item.quantity = +quantityInput.value;
+          document.querySelectorAll(".items-price")[i].textContent = `${
+            item.price
+          } EGP x ${item.quantity} = ${item.price * item.quantity} EGP`;
+          updateCart();
+          localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
+        }
+      };
+
+      minusButton.onclick = () => {
+        if (quantityInput.value > 1) {
+          quantityInput.stepDown();
+          updateItem();
+        }
+      };
+      plusButton.onclick = () => {
+        quantityInput.stepUp();
+        updateItem();
+      };
+      quantityInput.onchange = updateItem;
+      colorSelect.onchange = () => {
+        item.color = colorSelect.value;
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
-      fourthChild.appendChild(fourthChildButtonMinus);
-      fourthChild.appendChild(fourthChildInput);
-      fourthChild.appendChild(fourthChildButtonPlus);
-      firstChild.appendChild(fourthChild);
-      fifthChild = document.createElement("div");
-      fifthChild.classList.add(
-        "col-md-3",
-        "col-lg-2",
-        "col-xl-2",
-        "offset-lg-1"
-      );
-      fifthChildH6 = document.createElement("h6");
-      fifthChildH6.classList.add("mb-0");
-      fifthChildH6.innerText = `${cartItems[i].price} EGP`;
-      fifthChild.appendChild(fifthChildH6);
-      firstChild.appendChild(fifthChild);
-      sixthChild = document.createElement("div");
-      sixthChild.classList.add("col-md-1", "col-lg-1", "col-xl-1", "text-end");
-      SixthChildDiv = document.createElement("div");
-      SixthChildDiv.classList.add("icon-box");
-      SixthChildDivAnchor = document.createElement("a");
-      SixthChildDivAnchor.href = "#!";
-      SixthChildDivAnchor.classList.add("text-muted");
-      SixthChildDivAnchor.onclick = function (e) {
-        e.preventDefault();
-        addToWishlist(
-          cartItems[i].id,
-          cartItems[i].name,
-          cartItems[i].picture,
-          cartItems[i].price
-        );
+      sizeSelect.onchange = () => {
+        item.size = sizeSelect.value;
+        localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
-      SixthChildDivAnchor.innerHTML = '<i class="fa-regular fa-heart"></i>';
-      SixthChildDivSpan = document.createElement("span");
-      SixthChildDivSpan.classList.add("tooltip");
-      SixthChildDivSpan.textContent = "Add to Wishlist";
-      SixthChildDiv.appendChild(SixthChildDivAnchor);
-      SixthChildDiv.appendChild(SixthChildDivSpan);
-      sixthChild.appendChild(SixthChildDiv);
-      firstChild.appendChild(sixthChild);
-      SeventhChild = document.createElement("div");
-      SeventhChild.classList.add(
-        "col-md-1",
-        "col-lg-1",
-        "col-xl-1",
-        "text-end"
-      );
-      SeventhChildDiv = document.createElement("div");
-      SeventhChildDiv.classList.add("icon-box");
-      SeventhChildDivAnchor = document.createElement("a");
-      SeventhChildDivAnchor.href = "#";
-      SeventhChildDivAnchor.classList.add("text-muted");
-      SeventhChildDivAnchor.onclick = function (e) {
+      deleteFromCart.onclick = (e) => {
         e.preventDefault();
-        removeFromCart(cartItems[i].id);
+        removeFromCart(item.id);
         location.reload();
       };
-      SeventhChildDivAnchor.innerHTML = '<i class="fas fa-times"></i>';
-      SeventhChildDivSpan = document.createElement("span");
-      SeventhChildDivSpan.classList.add("tooltip");
-      SeventhChildDivSpan.textContent = "Remove from Cart";
-      SeventhChildDiv.appendChild(SeventhChildDivAnchor);
-      SeventhChildDiv.appendChild(SeventhChildDivSpan);
-      SeventhChild.appendChild(SeventhChildDiv);
-      firstChild.appendChild(SeventhChild);
-      EighthChild = document.createElement("div");
-      EighthChild.classList.add("col-md-3", "col-lg-3", "col-xl-3", "mt-3");
-      EighthChildLabel = document.createElement("label");
-      EighthChildLabel.htmlFor = "colorSelect";
-      EighthChildLabel.classList.add("form-label");
-      EighthChildLabel.innerText = "Select Color";
-      EighthChildSelect = document.createElement("select");
-      EighthChildSelect.id = "colorSelect";
-      EighthChildSelect.classList.add("form-select");
-      EighthChildSelect.onchange = function () {
-        cartItems[i].color = this.value;
-        localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
+      insertToWishlist.onclick = (e) => {
+        e.preventDefault();
+        addToWishlist(item.id, item.name, item.picture, item.price);
       };
-      for (let j = 0; j < Colors.length; j++) {
-        EighthChildSelectOption = document.createElement("option");
-        EighthChildSelectOption.value = `${Colors[j]}`;
-        EighthChildSelectOption.textContent = `${Colors[j]}`;
-        EighthChildSelect.appendChild(EighthChildSelectOption);
-      }
-      EighthChildSelect.value = cartItems[i].color;
-      EighthChild.appendChild(EighthChildLabel);
-      EighthChild.appendChild(EighthChildSelect);
-      EighthChild.appendChild(EighthChildSelect);
-      firstChild.appendChild(EighthChild);
 
-      NinthChild = document.createElement("div");
-      NinthChild.classList.add("col-md-3", "col-lg-3", "col-xl-3", "mt-3");
-      NinthChildLabel = document.createElement("label");
-      NinthChildLabel.htmlFor = "colorSelect";
-      NinthChildLabel.classList.add("form-label");
-      NinthChildLabel.innerText = "Select Size";
-      NinthChildSelect = document.createElement("select");
-      NinthChildSelect.id = "colorSelect";
-      NinthChildSelect.classList.add("form-select");
-      NinthChildSelect.onchange = function () {
-        cartItems[i].size = this.value;
-        localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
-      };
-      for (let j = 0; j < Sizes.length; j++) {
-        NinthChildSelectOption = document.createElement("option");
-        NinthChildSelectOption.value = `${Sizes[j]}`;
-        NinthChildSelectOption.textContent = `${Sizes[j]}`;
-        NinthChildSelect.appendChild(NinthChildSelectOption);
-      }
-      NinthChildSelect.value = cartItems[i].size;
-      NinthChild.appendChild(NinthChildLabel);
-      NinthChild.appendChild(NinthChildSelect);
-      NinthChild.appendChild(NinthChildSelect);
-      firstChild.appendChild(NinthChild);
+      const summaryChild = document.createElement("div");
+      summaryChild.className = "d-flex justify-content-between mb-4";
+      summaryChild.innerHTML = `<h5>Item ${
+        i + 1
+      }: </h5><h5 class="items-price">${item.price} EGP x ${item.quantity} = ${
+        item.price * item.quantity
+      } EGP</h5>`;
+      parentSummary.insertBefore(
+        summaryChild,
+        document.querySelector(".promo-code")
+      );
+    });
 
-      LastChild = document.createElement("hr");
-      LastChild.classList.add("my-4");
-      SummaryChild = document.createElement("div");
-      SummaryChild.classList.add("d-flex", "justify-content-between", "mb-4");
-      FirstSummaryChildH5 = document.createElement("h5");
-      FirstSummaryChildH5.textContent = `Item ${i + 1}: `;
-      FirstSummaryChild2H5 = document.createElement("h5");
-      FirstSummaryChild2H5.classList.add("items-price");
-      FirstSummaryChild2H5.textContent = `${cartItems[i].price} EGP x ${
-        cartItems[i].quantity
-      } = ${cartItems[i].price * cartItems[i].quantity} EGP`;
-      SummaryChild.appendChild(FirstSummaryChildH5);
-      SummaryChild.appendChild(FirstSummaryChild2H5);
-      parentSummary.insertBefore(SummaryChild, promoCodeh5);
-      totalPrice += cartItems[i].price * cartItems[i].quantity;
-    }
-    originalPrice = totalPrice;
-    discount.onchange = function (e) {
-      if (e.target.value === promoCode) {
-        discountAmount = 0.25;
-        totalPrice = totalPrice * (1 - discountAmount);
-        document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
-        totalPriceLabel.innerText = "Discounted price";
-      } else {
-        discountAmount = 0;
-        totalPrice = originalPrice;
-        document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
-        totalPriceLabel.innerText = "Total price";
-      }
-    };
+    updateCart();
 
     document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
     if (totalPrice == 0) {
@@ -461,7 +289,9 @@ function viewCart() {
         window.location.href = "../payment/success.html";
       }
     };
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function createStripeCheckout() {

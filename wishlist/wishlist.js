@@ -132,127 +132,61 @@ fetch("../footer/footer.html")
 // Navbar and footer---------------
 function viewWishlist() {
   try {
-    let userName = (document.querySelector(
-      ".user-name"
-    ).innerText = `${currentUser}\n Wishlist`);
-    let cartItems = getWishlistItems();
+    // Retrieve wishlist items
+    const Items = getWishlistItems();
 
-    let firstChild;
-    let horizontalLine;
-    let secondChild;
-    let secondChildImg;
-    let thirdChild;
-    let thirdChildH6;
-    let fifthChild;
-    let fifthChildH6;
-    let sixthChild;
-    let SixthChildDiv;
-    let SixthChildDivAnchor;
-    let SixthChildDivSpan;
-    let SeventhChild;
-    let SeventhChildDiv;
-    let SeventhChildDivAnchor;
-    let SeventhChildDivSpan;
-    let LastChild;
-
+    // Check if the parentDiv is selected correctly
     const parentDiv = document.querySelector(".parent-cart");
-    parentDiv.firstElementChild.lastElementChild.textContent = `${cartItems.length} Items`;
-    for (let i = 0; i < cartItems.length; i++) {
-      cartItems[i].quantity = 1;
-      cartItems[i].color = "";
-      firstChild = document.createElement("div");
-      firstChild.classList.add(
-        "row",
-        "mb-4",
-        "d-flex",
-        "justify-content-between",
-        "align-items-center"
-      );
-      horizontalLine = document.createElement("hr");
-      horizontalLine.classList.add("my-4");
-      parentDiv.appendChild(horizontalLine);
-      parentDiv.appendChild(firstChild);
-      secondChild = document.createElement("div");
-      secondChild.classList.add("col-md-2", "col-lg-2", "col-xl-2");
-      secondChildImg = document.createElement("img");
-      secondChildImg.src = `${cartItems[i].picture}`;
-      secondChildImg.classList.add("img-fluid", "rounded-3");
-      secondChildImg.alt = `${cartItems[i].name}`;
-      secondChild.appendChild(secondChildImg);
-      firstChild.appendChild(secondChild);
-      thirdChild = document.createElement("div");
-      thirdChild.classList.add("col-md-3", "col-lg-3", "col-xl-3");
-      thirdChildH6 = document.createElement("h6");
-      thirdChildH6.textContent = `${cartItems[i].name}`;
-      thirdChild.appendChild(thirdChildH6);
-      firstChild.appendChild(thirdChild);
 
-      fifthChild = document.createElement("div");
-      fifthChild.classList.add(
-        "col-md-3",
-        "col-lg-2",
-        "col-xl-2",
-        "offset-lg-1"
-      );
-      fifthChildH6 = document.createElement("h6");
-      fifthChildH6.classList.add("mb-0");
-      fifthChildH6.innerText = `${cartItems[i].price} EGP`;
-      fifthChild.appendChild(fifthChildH6);
-      firstChild.appendChild(fifthChild);
-      sixthChild = document.createElement("div");
-      sixthChild.classList.add("col-md-1", "col-lg-1", "col-xl-1", "text-end");
-      SixthChildDiv = document.createElement("div");
-      SixthChildDiv.classList.add("icon-box");
-      SixthChildDivAnchor = document.createElement("a");
-      SixthChildDivAnchor.href = "#!";
-      SixthChildDivAnchor.classList.add("text-muted");
-      SixthChildDivAnchor.onclick = function (e) {
-        e.preventDefault();
-        addToCart(
-          cartItems[i].id,
-          cartItems[i].name,
-          cartItems[i].picture,
-          cartItems[i].price
-        );
-      };
-      SixthChildDivAnchor.innerHTML =
-        '<i class="fa-solid fa-cart-shopping"></i>';
-      SixthChildDivSpan = document.createElement("span");
-      SixthChildDivSpan.classList.add("tooltip");
-      SixthChildDivSpan.textContent = "Add to Cart";
-      SixthChildDiv.appendChild(SixthChildDivAnchor);
-      SixthChildDiv.appendChild(SixthChildDivSpan);
-      sixthChild.appendChild(SixthChildDiv);
-      firstChild.appendChild(sixthChild);
-      SeventhChild = document.createElement("div");
-      SeventhChild.classList.add(
-        "col-md-1",
-        "col-lg-1",
-        "col-xl-1",
-        "text-end"
-      );
-      SeventhChildDiv = document.createElement("div");
-      SeventhChildDiv.classList.add("icon-box");
-      SeventhChildDivAnchor = document.createElement("a");
-      SeventhChildDivAnchor.href = "#";
-      SeventhChildDivAnchor.classList.add("text-muted");
-      SeventhChildDivAnchor.onclick = function (e) {
-        e.preventDefault();
-        removeFromWishlist(cartItems[i].id);
-        location.reload();
-      };
-      SeventhChildDivAnchor.innerHTML = '<i class="fas fa-times"></i>';
-      SeventhChildDivSpan = document.createElement("span");
-      SeventhChildDivSpan.classList.add("tooltip");
-      SeventhChildDivSpan.textContent = "Remove from Cart";
-      SeventhChildDiv.appendChild(SeventhChildDivAnchor);
-      SeventhChildDiv.appendChild(SeventhChildDivSpan);
-      SeventhChild.appendChild(SeventhChildDiv);
-      firstChild.appendChild(SeventhChild);
+    // Set the title of the wishlist
+    document.querySelector(".user-name").innerText = `WISHLIST`;
 
-      LastChild = document.createElement("hr");
-      LastChild.classList.add("my-4");
-    }
+    // Update Wishlist Summary
+    parentDiv.firstElementChild.lastElementChild.textContent = `${Items.length} Items`;
+
+    // Loop through the items and display them
+    Items.forEach((item) => {
+      const row = document.createElement("div");
+      row.className =
+        "row mb-4 d-flex justify-content-between align-items-center";
+      row.innerHTML = `
+        <hr class="my-4">
+        <div class="col-md-2 col-lg-2 col-xl-2">
+          <img src="${item.picture}" class="img-fluid rounded-3" alt="${item.name}">
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3">
+          <h6>${item.name}</h6>
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+          <h6 class="mb-0">${item.price} EGP</h6>
+        </div>
+        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+          <div class="icon-box">
+            <a href="#" class="text-muted"><i class="fas fa-cart-shopping"></i></a>
+            <span class="tooltip">Add to Cart</span>
+          </div>
+        </div>
+        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+          <div class="icon-box">
+            <a href="#" class="text-muted"><i class="fas fa-times"></i></a>
+            <span class="tooltip">Remove from Wishlist</span>
+          </div>
+        </div>
+        `;
+
+      parentDiv.appendChild(row);
+
+      // Remove from Wishlist Button
+      row.querySelector(".fa-times").onclick = () => {
+        removeFromWishlist(item.id);
+        location.reload(); // Reload to refresh the list
+      };
+
+      // Add to Cart Button
+      row.querySelector(".fa-cart-shopping").onclick = () => {
+        addToCart(item.id, item.name, item.picture, item.price);
+      };
+    });
   } catch (error) {
     console.error(error);
   }
