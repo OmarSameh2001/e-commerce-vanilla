@@ -22,17 +22,21 @@ function addToCart(id, name, picture, price) {
 function addToWishlist(id, name, picture, price) {
   const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
-    const wishlistItems = JSON.parse(wishlist);
+    //if wishlist doesn't exist
+    const wishlistItems = JSON.parse(wishlist); //convert from JSON string to an array of objects.
     if (wishlistItems.some((item) => item.id === id)) {
+      //.some returns true if any item in the array matches the condition (item.id === id).
       alert("Item already in wishlist");
       return;
     }
-    wishlistItems.push({ id, name, picture, price });
+    //if it doesn't exist, add it to the end of the array using push method.
+    wishlistItems.push({ id, name, picture, price }); //If the item is not already in the wishlist, a new item will be added to the array.
     localStorage.setItem(
       `${currentUser}wishlist`,
-      JSON.stringify(wishlistItems)
+      JSON.stringify(wishlistItems) //convert it back to JSON string and add it to local storage under currentUserWishlist key.
     );
   } else {
+    //if wishlist doesn't exist
     localStorage.setItem(
       `${currentUser}wishlist`,
       JSON.stringify([{ id, name, picture, price }])
@@ -131,7 +135,7 @@ fetch("../footer/footer.html")
       window.location.href = "../profilepage/profilepage.html";
     });
     userName.style.cursor = "pointer";
-    
+
     const logoutmini = document.getElementById("logout-mini");
     logoutmini.addEventListener("click", function () {
       const confirmLogout = window.confirm("Are you sure you want to logout?");
