@@ -7,7 +7,7 @@ import {
 
 async function fetchProducts() {
   return await fetch(
-    "https://gist.githubusercontent.com/OmarSameh2001/9d6452747e0181cdbafa965e511c4d09/raw/41dd38902358e58ba96c0f14e815f674c9405de9/products.json"
+    "https://gist.githubusercontent.com/OmarSameh2001/9d6452747e0181cdbafa965e511c4d09/raw/b90182914ff32d45424d5bc852ec786b545bdc9a/products.json"
   ).then((response) => response.json());
 }
 
@@ -59,7 +59,7 @@ function displayProducts(products) {
     productDiv.innerHTML = `
             <div class="card d-flex flex-column align-items-center justify-content-center text-center p-3" style="width: 20rem; height: 400px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; overflow: hidden;">
                 <div onclick="window.location.href='../product-page/singleproduct.html?id=${product.id}'"> 
-                    <img src="${product.image}" class="text-truncate" style="width: 100%; height: 200px; object-fit: cover;" alt="${product.name}">
+                    <img src="${product.image}" class="text-truncate" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy" alt="${product.name}">
                     <h4 style="font-size: 1.1rem; margin: 1rem 0; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${product.name}</h4>
                     <p style="font-size: 0.9rem; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Open the product to see more info about it</p>
                     <p style="font-size: 1rem; font-weight: bold; color: #000;">Price: ${product.price} EGP</p>

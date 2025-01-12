@@ -101,7 +101,7 @@ try {
 function viewCart() {
   try {
     const userAddress = user.address;
-    document.getElementById("shipping-address").value = userAddress; // Get the user's saved address and display it in the shipping address input field
+    document.getElementById("shipping-address").value = userAddress || ""; // Get the user's saved address and display it in the shipping address input field
     const cartItems = getCartItems(); //get cart items from local storage.
     document.querySelector(".user-name").innerText = `SHOPPING CART`; // Update the page header to "SHOPPING CART".
     document.querySelector(".user-name").classList.add(`mt-5`, `mb-0`);
@@ -296,7 +296,7 @@ function viewCart() {
     }
     const cash = document.getElementById("cash");
     document.querySelector(".proceed-to-checkout").onclick = function () {
-      if (user.address == null) {
+      if (!user.address) {
         alert("Please enter your address");
         return;
       }
