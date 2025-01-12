@@ -147,7 +147,7 @@ function viewCart() {
         </div>
         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
           <button class="btn btn-link px-2"><i class="fas fa-minus"></i></button>
-          <input type="number" id="form1" name="quantity" min="0" class="form-control form-control-sm" value="${
+          <input type="number" id="form1" name="quantity" min="0" class="form-control form-control-sm min-width-50" value="${
             item.quantity
           }">
           <button class="btn btn-link px-2"><i class="fas fa-plus"></i></button>

@@ -93,7 +93,7 @@
     letter-spacing: 2px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, color 0.3s ease;
-    cursor: default;
+    cursor: pointer;
 }
 
 .navbar-brand:hover {
@@ -126,23 +126,16 @@
     color: black;
 }
 
-.nav-item .fas:hover {
-    color: #9D9C9C;
-    transform: scale(1.05);
-    transition: transform 0.3s ease, color 0.3s ease;
+.nav-item .fa-solid {
+    color: black;
 }
 
-.dropdown .fas:hover {
+.nav-item .fas:hover, .nav-item .fa-solid:hover {
     color: #9D9C9C;
     transform: scale(1.05);
-    transition: transform 0.3s ease, color 0.3s ease;
-    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .dropdown li a:hover {
     cursor: pointer;
-}
-
-#userName {
-    cursor: default;
 }

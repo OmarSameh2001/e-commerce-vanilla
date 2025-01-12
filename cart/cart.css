@@ -45,3 +45,7 @@
 .text-body {
   text-decoration: none;
 }
+
+.min-width-50 {
+  min-width: 50px;
+}
