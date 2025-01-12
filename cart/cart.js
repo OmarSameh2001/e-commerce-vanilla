@@ -9,35 +9,44 @@ const user = users.find((user) => user.username === currentUser);
 function addToWishlist(id, name, picture, price) {
   const wishlist = localStorage.getItem(`${currentUser}wishlist`);
   if (wishlist) {
-    const wishlistItems = JSON.parse(wishlist);
+    //if wishlist doesn't exist
+    const wishlistItems = JSON.parse(wishlist); //convert from JSON string to an array of objects.
+    //check if the item already exist in the wishlist or no.
     if (wishlistItems.some((item) => item.id === id)) {
+      //.some returns true if any item in the array matches the condition (item.id === id).
       alert("Item already in wishlist");
       return;
     }
-    wishlistItems.push({ id, name, picture, price });
+    //if it doesn't exist, add it to the end of the array using push method.
+    wishlistItems.push({ id, name, picture, price }); //If the item is not already in the wishlist, a new item will be added to the array.
     alert(`Sucessfully added to wishlist`);
     localStorage.setItem(
       `${currentUser}wishlist`,
-      JSON.stringify(wishlistItems)
+      JSON.stringify(wishlistItems) //convert it back to JSON string and add it to local storage under currentUserWishlist key.
     );
   } else {
+    //if wishlist doesn't exist
     localStorage.setItem(
       `${currentUser}wishlist`,
       JSON.stringify([{ id, name, picture, price }])
     );
   }
 }
+//similar to addToWishlist logic.
 function addToCart(id, name, picture, price) {
   const cart = localStorage.getItem(`${currentUser}cart`);
   if (cart) {
+    //if cart already exist
     const cartItems = JSON.parse(cart);
     if (cartItems.some((item) => item.id === id)) {
+      //if item already exist in cart
       alert("Item already in cart");
       return;
     }
-    cartItems.push({ id, name, picture, price });
+    cartItems.push({ id, name, picture, price }); //if item doesn't exist in the cart add it to the end using push method.
     localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
   } else {
+    //if cart doesn't exist.
     localStorage.setItem(
       `${currentUser}cart`,
       JSON.stringify([{ id, name, picture, price }])
@@ -48,27 +57,29 @@ function removeFromCart(id) {
   const cart = localStorage.getItem(`${currentUser}cart`);
   if (cart) {
     const cartItems = JSON.parse(cart);
-    const updatedCart = cartItems.filter((item) => item.id !== id);
-    localStorage.setItem(`${currentUser}cart`, JSON.stringify(updatedCart));
+    const updatedCart = cartItems.filter((item) => item.id !== id); //return all cartItems except for the selected Item.
+    localStorage.setItem(`${currentUser}cart`, JSON.stringify(updatedCart)); //add updated cart in localStorage.
   }
 }
 
 function getCartItems() {
   const cart = localStorage.getItem(`${currentUser}cart`);
-  const res = [];
+  const res = []; // Initialize an empty array to store the cart items
   if (cart) {
     for (const i of JSON.parse(cart)) {
+      // Loop through each item in the parsed cart data
       res.push(i);
     }
     return res;
   }
-  return [];
+  return []; // If no cart data was found, return an empty array
 }
 function getCartItem(id) {
   const cart = localStorage.getItem(`${currentUser}cart`);
   if (cart) {
     for (const i of JSON.parse(cart)) {
       if (i.id === id) {
+        //Check if the current item's id matches the given id
         return i;
       }
     }
@@ -77,11 +88,12 @@ function getCartItem(id) {
 }
 
 try {
-  const addressButton = document.getElementById("save-address");
+  const addressButton = document.getElementById("save-address"); //get the save address button
   addressButton.addEventListener("click", () => {
-    const address = document.getElementById("shipping-address").value;
+    const address = document.getElementById("shipping-address").value; // Get the value of the 'shipping-address' input field
     if (address && user.address !== address) {
-      user.address = address;
+      //checks if address is not empty and if the new address is different from the current user address.
+      user.address = address; //update address with new value.
       localStorage.setItem("usersData", JSON.stringify(users));
     }
   });
@@ -89,10 +101,11 @@ try {
 function viewCart() {
   try {
     const userAddress = user.address;
-    document.getElementById("shipping-address").value = userAddress;
-    const cartItems = getCartItems();
-    document.querySelector(".user-name").innerText = `SHOPPING CART`;
+    document.getElementById("shipping-address").value = userAddress; // Get the user's saved address and display it in the shipping address input field
+    const cartItems = getCartItems(); //get cart items from local storage.
+    document.querySelector(".user-name").innerText = `SHOPPING CART`; // Update the page header to "SHOPPING CART".
     document.querySelector(".user-name").classList.add(`mt-5`, `mb-0`);
+    // Select the parent containers for the cart and summary sections
     const parentDiv = document.querySelector(".parent-cart");
     const parentSummary = document.querySelector(".parent-summary");
     parentSummary.classList.add("mt-5");
@@ -100,34 +113,39 @@ function viewCart() {
     let totalPrice = 0;
     let originalPrice = 0;
 
+    // Function to update cart total price and apply discount if applicable
     const updateCart = () => {
       totalPrice = cartItems.reduce(
+        //calculate totalPrice.
         (acc, item) => acc + item.price * item.quantity,
         0
       );
-      originalPrice = totalPrice;
+
+      originalPrice = totalPrice; // Store the original total price before applying any discount.
       const discount =
-        document.querySelector(".discount").value === promoCode ? 0.25 : 0;
-      totalPrice *= 1 - discount;
-      document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
-      document.querySelector(".total-price-label").innerText = discount
+        document.querySelector(".discount").value === promoCode ? 0.25 : 0; // If promoCode matches, apply a 25% discount (0.25), otherwise, no discount (0).
+      totalPrice *= 1 - discount; //apply discount
+      document.querySelector(".total-price").innerText = `${totalPrice} EGP`; // Update the displayed total price in the HTML
+      document.querySelector(".total-price-label").innerText = discount //// Update the label for the total price in case its discounted or not.
         ? "Discounted price"
         : "Total price";
-      document.querySelector(".proceed-to-checkout").disabled =
+      document.querySelector(".proceed-to-checkout").disabled = // Disable the "Proceed to Checkout" button if the total price is 0
         totalPrice === 0;
     };
 
-    // Add onchange event to promo code input
+    // Add onchange event to promo code input to update cart price.
     const promoInput = document.querySelector(".discount");
     if (promoInput) {
       promoInput.onchange = updateCart;
     }
-
+    // Loop through each cart item to generate the cart UI
     cartItems.forEach((item, i) => {
+      // Set default values for optional item properties
       item.size = item.size || "Small";
       item.quantity = item.quantity || 1;
       item.color = item.color || "Red";
 
+      // Create a new row for each item in the cart
       const row = document.createElement("div");
       row.className =
         "row mb-4 d-flex justify-content-between align-items-center";
@@ -147,7 +165,7 @@ function viewCart() {
         </div>
         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
           <button class="btn btn-link px-2"><i class="fas fa-minus"></i></button>
-          <input type="number" id="form1" name="quantity" min="0" class="form-control form-control-sm min-width-50" value="${
+          <input type="number" id="form1" name="quantity" min="0" class="form-control form-control-sm" value="${
             item.quantity
           }">
           <button class="btn btn-link px-2"><i class="fas fa-plus"></i></button>
@@ -185,7 +203,7 @@ function viewCart() {
               .map(
                 (color) =>
                   `<option value="${color}" ${
-                    color === item.color ? "selected" : ""
+                    color === item.color ? "selected" : "" // Conditionally set the 'selected' attribute if the color matches the item's color
                   }>${color}</option>`
               )
               .join("")}
@@ -213,7 +231,6 @@ function viewCart() {
       const sizeSelect = row.querySelector("#sizeSelect");
       const deleteFromCart = row.querySelector(".removeFromCart");
       const insertToWishlist = row.querySelector(".addToWishlist");
-      console.log(insertToWishlist);
       const updateItem = () => {
         if (quantityInput.value >= 1) {
           item.quantity = +quantityInput.value;
@@ -254,6 +271,7 @@ function viewCart() {
         addToWishlist(item.id, item.name, item.picture, item.price);
       };
 
+      // Create a summary row for each item and insert it before the promo code input
       const summaryChild = document.createElement("div");
       summaryChild.className = "d-flex justify-content-between mb-4";
       summaryChild.innerHTML = `<h5>Item ${
@@ -267,16 +285,17 @@ function viewCart() {
       );
     });
 
-    updateCart();
+    updateCart(); // Initial call to updateCart to ensure correct total price
 
-    document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
+    document.querySelector(".total-price").innerText = `${totalPrice} EGP`; //set total price text.
     if (totalPrice == 0) {
+      // Enable or disable the proceed to checkout button based on total price
       document.querySelector(".proceed-to-checkout").disabled = true;
     } else {
       document.querySelector(".proceed-to-checkout").disabled = false;
     }
     const cash = document.getElementById("cash");
-    document.querySelector(".proceed-to-checkout").onclick = async function () {
+    document.querySelector(".proceed-to-checkout").onclick = function () {
       if (user.address == null) {
         alert("Please enter your address");
         return;
@@ -285,7 +304,7 @@ function viewCart() {
       localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       localStorage.setItem("price", totalPrice);
       localStorage.setItem("address", user.address);
-
+      // Check if the cash payment option is selected
       if (!cash.checked) {
         createStripeCheckout();
       } else {
@@ -347,22 +366,6 @@ fetch("../navbar/nav.html")
     } else {
       document.getElementById("dropdown").display = "none";
     }
-
-    const userName = document.getElementById("userName");
-    userName.addEventListener("click", function () {
-      window.location.href = "../profilepage/profilepage.html";
-    });
-    userName.style.cursor = "pointer";
-    
-    const logoutmini = document.getElementById("logout-mini");
-    logoutmini.addEventListener("click", function () {
-      const confirmLogout = window.confirm("Are you sure you want to logout?");
-      if (confirmLogout) {
-        localStorage.removeItem("currentUser");
-        sessionStorage.removeItem("currentUser");
-        window.location.href = "../user/user.html";
-      }
-    });
   })
   .catch((error) => {
     console.error("There was a problem with the fetch operation:", error);

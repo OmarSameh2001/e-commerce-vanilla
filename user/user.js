@@ -106,7 +106,7 @@ document
     }
   });
 
-  let generatedOtp = null;
+let generatedOtp = null;
 // Registration Form Submission
 document
   .getElementById("register-button")
@@ -148,19 +148,23 @@ document
     }
 
     generatedOtp = Math.floor(Math.random() * 9999).toString();
-    console.log(generatedOtp);
-    // try {
-    //   const templateParams = {
-    //   email: email,
-    //   message: `Your OTP is ${generatedOtp}`,
-    //   name: email.split("@")[0],
-    //   }
-    //   const response = await emailjs.send('service_nv0azng', 'template_68ny5to', templateParams)
-    //   console.log('Email sent successfully:', response);
-    // } catch (error) {
-    //   alert('Error sending email:', error);
-    //   return;
-    // }
+    // console.log(generatedOtp);
+    try {
+      const templateParams = {
+        email: email,
+        message: `Your OTP is ${generatedOtp}`,
+        name: email.split("@")[0],
+      };
+      const response = await emailjs.send(
+        "service_nv0azng",
+        "template_68ny5to",
+        templateParams
+      );
+      console.log("Email sent successfully:", response);
+    } catch (error) {
+      alert("Error sending email:", error);
+      return;
+    }
     document.getElementById("otp-container").style.display = "block";
     document.getElementById("inputEmailRegister").disabled = true;
     document.getElementById("inputPasswordRegister").disabled = true;
@@ -168,43 +172,41 @@ document
     document.getElementById("register-button").disabled = true;
   });
 
-document
-  .getElementById("sendOtp")
-  .addEventListener("click", function (event) {
+document.getElementById("sendOtp").addEventListener("click", function (event) {
+  event.preventDefault();
+  const email = document.getElementById("inputEmailRegister").value;
+  const password = document.getElementById("inputPasswordRegister").value;
+  const bcrypt = dcodeIO.bcrypt;
+  const salt = bcrypt.genSaltSync(10);
+  const otp = document.getElementById("inputOtp").value;
+  if (generatedOtp !== otp) {
+    alert("Invalid OTP");
     event.preventDefault();
-    const email = document.getElementById("inputEmailRegister").value;
-    const password = document.getElementById("inputPasswordRegister").value;
-    const bcrypt = dcodeIO.bcrypt;
-    const salt = bcrypt.genSaltSync(10);
-    const otp = document.getElementById("inputOtp").value;
-    if (generatedOtp !== otp) {
-      alert("Invalid OTP");
-      event.preventDefault();
-      return;
-    }
-    
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    // Store user data in local storage
-    const userData = {
-      username: email.split("@")[0],
-      email: email,
-      password: hashedPassword,
-    };
+    return;
+  }
 
-    const usersData = localStorage.getItem("usersData");
-    if (usersData && usersData) {
-      const users = JSON.parse(usersData);
-      users.push(userData);
-      localStorage.setItem("usersData", JSON.stringify(users));
-    } else {
-      localStorage.setItem("usersData", JSON.stringify([userData]));
-    }
+  const hashedPassword = bcrypt.hashSync(password, salt);
+  // Store user data in local storage
+  const userData = {
+    username: email.split("@")[0],
+    email: email,
+    password: hashedPassword,
+  };
 
-    alert("Registration successful!");
-    event.preventDefault();
+  const usersData = localStorage.getItem("usersData");
+  if (usersData && usersData) {
+    const users = JSON.parse(usersData);
+    users.push(userData);
+    localStorage.setItem("usersData", JSON.stringify(users));
+  } else {
+    localStorage.setItem("usersData", JSON.stringify([userData]));
+  }
 
-    window.location.reload(true);
-  });
+  alert("Registration successful!");
+  event.preventDefault();
+
+  window.location.reload(true);
+});
 
 // Login Form Submission
 document
@@ -225,7 +227,7 @@ document
       event.preventDefault();
       return;
     }
-    
+
     const rememberMe = document.getElementById("rememberMe");
 
     // Retrieve user data from local storage
@@ -233,13 +235,17 @@ document
     usersData.map((user) => {
       if (user.email === email) {
         if (bcrypt.compareSync(password, user.password)) {
-          if(rememberMe.checked) {
+          if (rememberMe.checked) {
             localStorage.setItem("currentUser", JSON.stringify(user.username));
-          }else {
-            sessionStorage.setItem("currentUser", JSON.stringify(user.username));
+          } else {
+            sessionStorage.setItem(
+              "currentUser",
+              JSON.stringify(user.username)
+            );
           }
           alert("Login successful!");
           window.location.href = "../index.html";
+          return;
         } else {
           alert("Invalid email or password.");
           event.preventDefault();
@@ -247,7 +253,7 @@ document
         }
       }
     });
-    alert("Invalid email or password.");
+    // alert("Invalid email or password.");
     event.preventDefault();
     return;
   });
