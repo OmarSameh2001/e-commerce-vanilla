@@ -139,13 +139,13 @@ function viewCart() {
     let FirstSummaryChild2H5;
     let totalPrice = 0;
     let discountAmount = 0;
+    let originalPrice = 0;
     const promoCode = "trendify";
     const promoCodeh5 = document.querySelector(".promo-code");
     //this is the parentDiv that will contain everything inside it.
     const parentDiv = document.querySelector(".parent-cart");
     const discount = document.querySelector(".discount");
     const totalPriceLabel = document.querySelector(".total-price-label");
-    const enterYourCode = document.querySelector(".enter-your-code");
 
     parentDiv.firstElementChild.lastElementChild.textContent = `${cartItems.length} Items`;
     const parentSummary = document.querySelector(".parent-summary");
@@ -205,7 +205,7 @@ function viewCart() {
         cartItems.forEach((item) => {
           totalPrice += item.price * item.quantity;
         });
-
+        originalPrice = totalPrice;
         if (discount.value === "trendify") {
           discountAmount = 0.25;
           totalPrice = totalPrice * (1 - discountAmount);
@@ -213,23 +213,14 @@ function viewCart() {
             ".total-price"
           ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Discounted price";
-          enterYourCode.innerHTML = `<label
-                            class="form-label enter-your-code"
-                            for="form3Examplea2"
-                            >25% Discount applied </label>
-                            <i className="fa-solid fa-check" style={{ color: "#066f50" }} />
-                          `;
         } else {
           discountAmount = 0;
+          totalPrice = originalPrice;
           document.querySelector(
             ".total-price"
           ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Total price";
-          enterYourCode.innerHTML = `<label
-                            class="form-label enter-your-code"
-                            for="form3Examplea2"
-                            >Enter your code </label
-                          >`;
+          console.log(enterYourCode);
         }
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
@@ -249,6 +240,7 @@ function viewCart() {
         cartItems.forEach((item) => {
           totalPrice += item.price * item.quantity;
         });
+        originalPrice = totalPrice;
         if (discount.value === promoCode) {
           discountAmount = 0.25;
           totalPrice = totalPrice * (1 - discountAmount);
@@ -256,23 +248,13 @@ function viewCart() {
             ".total-price"
           ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Discounted price";
-          enterYourCode.innerHTML = `<label
-                            class="form-label enter-your-code"
-                            for="form3Examplea2"
-                            >25% Discount applied </label>
-                            <i className="fa-solid fa-check" style={{ color: "#066f50" }} />
-                          `;
         } else {
           discountAmount = 0;
+          totalPrice = originalPrice;
           document.querySelector(
             ".total-price"
           ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Total price";
-          enterYourCode.innerHTML = `<label
-                            class="form-label enter-your-code"
-                            for="form3Examplea2"
-                            >Enter your code </label
-                          >`;
         }
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
       };
@@ -290,6 +272,7 @@ function viewCart() {
         cartItems.forEach((item) => {
           totalPrice += item.price * item.quantity;
         });
+        originalPrice = totalPrice;
         if (discount.value === promoCode) {
           discountAmount = 0.25;
           totalPrice = totalPrice * (1 - discountAmount);
@@ -297,23 +280,13 @@ function viewCart() {
             ".total-price"
           ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Discounted price";
-          enterYourCode.innerHTML = `<label
-                            class="form-label enter-your-code"
-                            for="form3Examplea2"
-                            >25% Discount applied </label>
-                            <i className="fa-solid fa-check" style={{ color: "#066f50" }} />
-                          `;
         } else {
           discountAmount = 0;
+          totalPrice = originalPrice;
           document.querySelector(
             ".total-price"
           ).innerText = `${totalPrice} EGP`;
           totalPriceLabel.innerText = "Total price";
-          enterYourCode.innerHTML = `<label
-                            class="form-label enter-your-code"
-                            for="form3Examplea2"
-                            >Enter your code </label
-                          >`;
         }
 
         localStorage.setItem(`${currentUser}cart`, JSON.stringify(cartItems));
@@ -449,28 +422,18 @@ function viewCart() {
       parentSummary.insertBefore(SummaryChild, promoCodeh5);
       totalPrice += cartItems[i].price * cartItems[i].quantity;
     }
-
+    originalPrice = totalPrice;
     discount.onchange = function (e) {
       if (e.target.value === promoCode) {
         discountAmount = 0.25;
         totalPrice = totalPrice * (1 - discountAmount);
         document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
         totalPriceLabel.innerText = "Discounted price";
-        enterYourCode.innerHTML = `<label
-                          class="form-label enter-your-code"
-                          for="form3Examplea2"
-                          >25% Discount applied </label>
-                          <i className="fa-solid fa-check" style={{ color: "#066f50" }} />
-                        `;
       } else {
         discountAmount = 0;
+        totalPrice = originalPrice;
         document.querySelector(".total-price").innerText = `${totalPrice} EGP`;
         totalPriceLabel.innerText = "Total price";
-        enterYourCode.innerHTML = `<label
-                          class="form-label enter-your-code"
-                          for="form3Examplea2"
-                          >Enter your code </label
-                        >`;
       }
     };
 
