@@ -1,15 +1,15 @@
 const form = document.getElementById('contact_form');
 
-form.addEventListener('submit', function(event) {
+// form.addEventListener('submit', function(event) {
 
-  event.preventDefault();
+//   event.preventDefault();
   
 
-  alert("Your message has been sent!");
+//   alert("Your message has been sent!");
   
 
-  form.reset();
-});
+//   
+// });
 
 // Navbar and footer-----------
 const navbarHtml = document.querySelector('.navbar');
