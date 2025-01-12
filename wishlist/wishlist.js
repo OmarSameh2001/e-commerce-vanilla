@@ -152,10 +152,10 @@ function viewWishlist() {
       row.innerHTML = `
         <hr class="my-4">
         <div class="col-md-2 col-lg-2 col-xl-2">
-          <img src="${item.picture}" class="img-fluid rounded-3" alt="${item.name}">
+          <img src="${item.picture}" class="img-fluid rounded-3" alt="${item.name}" onclick="window.location.href='../product-page/singleproduct.html?id=${item.id}'"style="cursor: pointer;">
         </div>
         <div class="col-md-3 col-lg-3 col-xl-3">
-          <h6>${item.name}</h6>
+          <h6 onclick="window.location.href='../product-page/singleproduct.html?id=${item.id}'"style="cursor: pointer;">${item.name}</h6>
         </div>
         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
           <h6 class="mb-0">${item.price} EGP</h6>

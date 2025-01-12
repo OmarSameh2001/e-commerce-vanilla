@@ -136,10 +136,14 @@ function viewCart() {
         <div class="col-md-2 col-lg-2 col-xl-2">
           <img src="${item.picture}" class="img-fluid rounded-3" alt="${
         item.name
-      }">
+      }" onclick="window.location.href='../product-page/singleproduct.html?id=${
+        item.id
+      }'"style="cursor: pointer;">
         </div>
         <div class="col-md-3 col-lg-3 col-xl-3">
-          <h6>${item.name}</h6>
+          <h6 onclick="window.location.href='../product-page/singleproduct.html?id=${
+            item.id
+          }'"style="cursor: pointer;">${item.name}</h6>
         </div>
         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
           <button class="btn btn-link px-2"><i class="fas fa-minus"></i></button>
