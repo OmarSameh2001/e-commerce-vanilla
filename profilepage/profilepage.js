@@ -1,19 +1,5 @@
 const navbarHtml = document.querySelector(".navbar");
 
-// Handle profile picture upload and preview
-document
-  .getElementById("profile-upload")
-  .addEventListener("change", function (event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        document.getElementById("profile-picture").src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
 // DOM Elements for profile and form inputs
 const profilePicture = document.getElementById("profile-picture");
 const profileUpload = document.getElementById("profile-upload");
@@ -61,7 +47,7 @@ function loadProfile() {
   }
 }
 
-// Save updated profile data
+// Save updated profile info to local storage 
 function saveProfile() {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const usersData = JSON.parse(localStorage.getItem("usersData"));
@@ -69,7 +55,7 @@ function saveProfile() {
   const userProfile = usersData.find((user) => user.username === currentUser);
 
   if (userProfile) {
-    // Grab all the inputs and validate them
+    //  triming of input and handling
     const countryCode = document.getElementById("country-code").value;
     const firstName = formInputs[0].value.trim();
     const lastName = formInputs[1].value.trim();
@@ -81,7 +67,7 @@ function saveProfile() {
     // Make sure names don't have numbers or special characters
     const nameRegex = /^[a-zA-Z\s]+$/;
 
-    // Let's run some checks before saving
+    //Validations
     if (!firstName) {
       alert("First name cannot be empty.");
       return;
@@ -126,10 +112,11 @@ function saveProfile() {
     userProfile.address = address;
     userProfile.postalCode = postalCode;
 
-    // Update the profile picture if it's changed
-    if (profilePicture.src !== userProfile.profilePicture) {
+    // Update the profile picture if it changed
+    if (profilePicture.src) {
       userProfile.profilePicture = profilePicture.src;
     }
+    
 
     // Save the changes back to local storage
     localStorage.setItem("usersData", JSON.stringify(usersData));
@@ -157,7 +144,7 @@ updateButton.addEventListener("click", function () {
   saveProfile();
 });
 
-// Load the profile data as soon as the page is ready
+// Load the profile when page is refresh
 document.addEventListener("DOMContentLoaded", loadProfile);
 
 // Handle the navigation bar and footer
